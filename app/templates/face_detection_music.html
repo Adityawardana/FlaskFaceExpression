@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="ui container">
+        <h1 class="center">Emotion Recognition</h1>
+
+        <div id="chartContainer" style="height: 400px; width:100%;"></div>
+
+        <div class="ui fluid container">
+            <div class="row">
+                <div class="ui divider"></div>
+                <div id="menu-controller">
+                    <div style="display:inline-block;margin-right: 50px;" class="ui buttons">
+                        <button class="ui labeled icon button" id="start" onclick="onStart()">
+                            <i class="play icon"></i>
+                            Play
+                        </button>
+                        <button class="ui labelled icon button" id="stop" onclick="onStop()">
+                            <i class="stop icon"></i>
+                            Stop
+                        </button>
+                        <button class="ui labeled icon button" id="reset" onclick="onReset()">
+                            Reset
+                            <i class="undo alternate icon"></i>
+                        </button>
+                    </div>
+
+                    <span>Music : {{ form.song.data }}</span>
+
+                    <!--<div>
+                        <br>
+                        <button class="btn btn-primary" id="start" onclick="onStart()">Start</button>
+                        <button class="btn btn-danger" id="stop" onclick="onStop()">Stop</button>
+                        <button class="btn btn-basic" id="reset" onclick="onReset()">Reset</button>
+                        <span>Music : {{ form.song.data }}</span>
+                    </div>-->
+
+                    <div style="display: inline-grid;margin-left: 50px;">
+                        <strong>LOG MESSAGES</strong>
+                        <span id="logs"></span>
+                    </div>
+                    <div style="height:25em;">
+                        <!--<strong>EMOTION RECOGNITION RESULTS</strong>-->
+                        <div>
+                            <h2 id="emotion_result" style="color: red;"></h2>
+                        </div>
+                        <div id="results" style="word-wrap:break-word;"></div>
+                    </div>
+                </div>
+
+                <div class="col-md-8" id="affdex_elements" style="width:200px;height:150px;position:fixed;right:10px;
+                                                                    bottom:10px;"></div>
+            </div>
+        </div>
+
+        <div class="ui hidden divider"></div>
+
+        <!--<button id="add-playlist">Add Playlist</button>-->
+        <!--<div id="playlist-content"></div>-->
+
+        <div class="ui divider">
+            <!--<h3 class="ui header">Music : {{ form.song.data }}</h3>-->
+            <b>
+                <audio id="audioPlayer" controls>
+                  <source src="{{ url_for('static', filename='songs/' +  form.song.data  + '.mp3') }}" type="audio/mp3">
+                  <!--<source src="static/songs/{{ form.song.data }} + .mp3" type="audio/mp3">-->
+                </audio>
+
+            </b>
+        </div>
+
+        <div id="download-txt">
+
+        </div>
+
+    </div>
+
+{% endblock %}

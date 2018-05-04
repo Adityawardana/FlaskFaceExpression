@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="ui inverted vertical masthead center aligned segment">
+        <div class="ui text container">
+          <h1 class="ui inverted header">
+            eMusic
+          </h1>
+          <h2>
+              Express Your Emotion With Music
+          </h2>
+          <div class="ui huge primary button white-text">
+              <a href="{{ url_for('select_music') }}">
+                  Get Started <i class="right arrow icon"></i>
+              </a>
+          </div>
+        </div>
+    </div>
+
+{% endblock %}

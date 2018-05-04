@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+       <div class="ui center aligned header container">
+           <h1>Welcome to eMusic</h1>
+
+           <div class="ui container">
+               <form method="post" action="" name="select_song">
+                   {{ form.song.label }}<br>
+                   <div class="ui hidden divider"></div>
+                   {{ form.song }}
+                   {{ form.submit_song() }}
+               </form>
+
+               <!--<form action="" class="ui form" method="get">-->
+                  <!--<div class="field">-->
+                    <!--<label>Select Music You Want to Sing : </label>-->
+                    <!--<select class="ui dropdown">-->
+                        <!--<option value="">Select Music</option>-->
+                        <!--<option value="LI">Adera - Lebih Indah</option>-->
+                        <!--<option value="PB">Citra Scholastika - Pasti Bisa</option>-->
+                        <!--<option value="BAH">GAC - Bahagia</option>-->
+                        <!--<option value="BUN">Melly Goeslaw - Bunda</option>-->
+                        <!--<option value="BKK">Ebiet G Ade - Berita Kepada Kawan</option>-->
+                    <!--</select>-->
+                  <!--</div>-->
+                  <!--<button class="ui primary button" type="submit" value="sing">Sing</button>-->
+                <!--</form>-->
+           </div>
+
+       </div>
+{% endblock %}
