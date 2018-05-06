@@ -13,7 +13,7 @@
         var pl_sugar = document.getElementById("sugar-pl");
 
         // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
+        var close_modal = document.getElementsByClassName("close")[0];
 
         // Start the audio
         startPlay.onclick = function() {
@@ -29,7 +29,7 @@
         }
 
         // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
+        close_modal.onclick = function() {
             modal.style.display = "none";
         }
 

@@ -24,22 +24,11 @@
                         </button>
                     </div>
 
-                    <span>Music : {{ form.song.data }}</span>
-
-                    <!--<div>
-                        <br>
-                        <button class="btn btn-primary" id="start" onclick="onStart()">Start</button>
-                        <button class="btn btn-danger" id="stop" onclick="onStop()">Stop</button>
-                        <button class="btn btn-basic" id="reset" onclick="onReset()">Reset</button>
-                        <span>Music : {{ form.song.data }}</span>
-                    </div>-->
-
                     <div style="display: inline-grid;margin-left: 50px;">
                         <strong>LOG MESSAGES</strong>
                         <span id="logs"></span>
                     </div>
                     <div style="height:25em;">
-                        <!--<strong>EMOTION RECOGNITION RESULTS</strong>-->
                         <div>
                             <h2 id="emotion_result" style="color: red;"></h2>
                         </div>
@@ -54,24 +43,28 @@
 
         <div class="ui hidden divider"></div>
 
-        <!--<button id="add-playlist">Add Playlist</button>-->
-        <!--<div id="playlist-content"></div>-->
+        <button id="add-playlist">Add Playlist</button>
+        <div id="playlist-content"></div>
 
         <div class="ui divider">
-            <!--<h3 class="ui header">Music : {{ form.song.data }}</h3>-->
             <b>
-                <audio id="audioPlayer" controls>
-                  <source src="{{ url_for('static', filename='songs/' +  form.song.data  + '.mp3') }}" type="audio/mp3">
-                  <!--<source src="static/songs/{{ form.song.data }} + .mp3" type="audio/mp3">-->
+                <audio class="" id="audioPlayer" controls>
+                  <source src="">
                 </audio>
-
             </b>
         </div>
 
-        <div id="download-txt">
+        <div id="download-txt"></div>
 
+    </div>
+
+    <div id="modal-playlist" class="modal-p">
+        <div class="modal-content">
+            <span class="close_modal">&times;</span>
+            <button id="happy-pl">Happy - add to Playlist</button>
+            <button id="lebihindah-pl">Lebih Indah - add to Playlist</button>
+            <button id="sugar-pl">Sugar - add to Playlist</button>
         </div>
-
     </div>
 
 {% endblock %}

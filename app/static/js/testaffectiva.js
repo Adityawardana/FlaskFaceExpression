@@ -6,7 +6,24 @@ $(document).ready(function(){
   var width = 640;
   var height = 480;
   var faceMode = affdex.FaceDetectorMode.LARGE_FACES;
-//  var selectedSOng = document.getElementById("selected_song");
+  //  var selectedSOng = document.getElementById("selected_song");
+
+  // loads the audio player
+  var startPlay = document.getElementById("start");
+
+  // Get the modal
+  var modal_pl = document.getElementById('modal-playlist');
+
+  // Get the button that opens the modal
+  var pl_add = document.getElementById("add-playlist");
+
+  // Add Song to playlist
+  var pl_happy = document.getElementById("happy-pl");
+  var pl_lebihindah = document.getElementById("lebihindah-pl");
+  var pl_sugar = document.getElementById("sugar-pl");
+
+  // Get the <span> element that closes the modal
+  var close_modal = document.getElementsByClassName("close_modal")[0];
 
   var dps = []; //dataPoints
   var chart = new CanvasJS.Chart("chartContainer", {
@@ -41,6 +58,7 @@ $(document).ready(function(){
   detector.addEventListener("onInitializeSuccess", function() {
     log('#logs', "The detector reports initialized");
     //Display canvas instead of video feed because we want to draw the feature points on it
+    startAudioPlayer();
     $("#face_video_canvas").css("display", "block");
     $("#face_video").css("display", "none");
   });
@@ -68,10 +86,12 @@ $(document).ready(function(){
   detector.addEventListener("onImageResultsSuccess", function(faces, image, timestamp) {
     $('#results').html("");
     $("#modal").hide();
+
     //log('#results', "Timestamp: " + timestamp.toFixed(2));
     //log('#results', "Number of faces found: " + faces.length);
 
     if (faces.length > 0) {
+
       // log('#results', "Appearance: " + JSON.stringify(faces[0].appearance));
       //log('#results', "Emotions: " + JSON.stringify(faces[0].emotions, function(key, val) {
       //  return val.toFixed ? Number(val.toFixed(0)) : val;
@@ -121,8 +141,8 @@ $(document).ready(function(){
     }
 
     chart.render();
-
-    document.getElementById("selected_song").play();
+//    startAudioPlayer();
+    //    document.getElementById("selected_song").play();
   });
 
   //Draw the detected facial feature points on the image
@@ -141,6 +161,67 @@ $(document).ready(function(){
       contxt.stroke();
     }
   }
+
+//  function checkVisibilityOfModal(){
+//    if($('#modal').css("display") == 'none') {
+////        startAudioPlayer();
+//        console.log("audio player started");
+//        return true;
+//    }
+//    else {
+//        return false;
+//    }
+//  }
+
+    // When the user clicks on <span> (x), close the modal
+    close_modal.onclick = function() {
+        modal_pl.style.display = "none";
+    }
+
+    // When the user clicks the button, open the modal
+    pl_add.onclick = function() {
+        modal_pl.style.display = "block";
+        var c_ul = document.createElement("UL");
+        c_ul.setAttribute("id","playlist");
+        document.getElementById("playlist-content").appendChild(c_ul);
+    }
+
+    // Add Song to list of playlist
+    pl_happy.onclick = function() {
+        pl_add.style.display = "none";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("Happy");
+
+        c_a.setAttribute("href", "/static/songs/happy.mp3");
+        c_a.appendChild(list_song);
+    }
+
+    pl_lebihindah.onclick = function() {
+        pl_add.style.display = "none";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("Lebih Indah");
+
+        c_a.setAttribute("href", "/static/songs/lebih%20indah.mp3");
+        c_a.appendChild(list_song);
+    }
+
+    pl_sugar.onclick = function() {
+        pl_add.style.display = "none";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("Sugar");
+
+        c_a.setAttribute("href", "/static/songs/sugar.mp3");
+        c_a.appendChild(list_song);
+    }
 });
 
 function log(node_name, msg) {
@@ -163,19 +244,19 @@ function onStop() {
   if (detector && detector.isRunning) {
     detector.removeEventListener();
     detector.stop();
-    document.getElementById("selected_song").pause();
-    document.getElementById("selected_song").currentTime = 0;
+    $("#audioPlayer")[0].pause();
+    $("#audioPlayer")[0].currentTime = 0;
   }
   log('#logs', "Audio Stopped");
 
-  var dwn = document.createElement("a");
-  adown.appendChild(dwn);
-  document.getElementById("download-txt").appendChild(dwn);
-
-  dwn.download = "export.txt";
-  dwn.href = "data:text/plain;base64," + btoa(JSON.stringify(dps));
-  dwn.innerHTML = "download example text";
-};
+//  var dwn = document.createElement("a");
+//  adown.appendChild(dwn);
+//  document.getElementById("download-txt").appendChild(dwn);
+//
+//  dwn.download = "export.txt";
+//  dwn.href = "data:text/plain;base64," + btoa(JSON.stringify(dps));
+//  dwn.innerHTML = "download example text";
+}
 
 //function executes when the Reset button is pushed.
 function onReset() {
@@ -185,4 +266,27 @@ function onReset() {
 
     $('#results').html("");
   }
-};
+}
+
+function startAudioPlayer(){
+    var currentSong = 0;
+
+    $("#audioPlayer")[0].src = $("#playlist li a")[0];
+    $("#audioPlayer")[0].play();
+    $("#playlist li a").click(function(e){
+        e.preventDefault();
+        $("#audioPlayer")[0].src = this;
+        $("#audioPlayer")[0].play();
+        $("#playlist li").removeClass("current-song");
+        currentSong = $(this).parent().index();
+        $(this).parent().addClass("current-song");
+    });
+
+    $("#audioPlayer")[0].addEventListener("ended", function(){
+        currentSong++;
+        $("#playlist li").removeClass("current-song");
+        $("#playlist li:eq("+currentSong+")").addClass("current-song");
+        $("#audioPlayer")[0].src = $("#playlist li a")[currentSong].href;
+        $("#audioPlayer")[0].play();
+    });
+}
