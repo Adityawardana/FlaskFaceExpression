@@ -119,36 +119,58 @@ $(document).ready(function(){
       //log('#results', "Emoji: " + faces[0].emojis.dominantEmoji);
       drawFeaturePoints(image, faces[0].featurePoints);
 
-      // Primitive UI for happy
-      if (faces[0].emotions["joy"]>50) {
-        document.getElementById("emotion_result").innerHTML = "Senang"
-      }
-      else if (faces[0].emotions["sadness"]>50) {
-        document.getElementById("emotion_result").innerHTML = "Sedih"
-      }
-      else if (faces[0].emotions["anger"]>50) {
-        document.getElementById("emotion_result").innerHTML = "Marah"
-      }
-      else if (faces[0].emotions["surprise"]>50) {
-        document.getElementById("emotion_result").innerHTML = "Terkejut"
-      }
-      else if (faces[0].emotions["disgust"]>50) {
-        document.getElementById("emotion_result").innerHTML = "Jijik"
-      }
-      else if (faces[0].emotions["contempt"]>50) {
-        document.getElementById("emotion_result").innerHTML = "Jijik"
-      }
-      else if (faces[0].emotions["fear"]>50) {
-        document.getElementById("emotion_result").innerHTML = "Takut"
-      }
-      else {
-        document.getElementById("emotion_result").innerHTML = ""
-      }
+//      // Primitive UI for happy
+//      if (faces[0].emotions["joy"]>50) {
+//        document.getElementById("emotion_result").innerHTML = "Senang"
+//      }
+//      else if (faces[0].emotions["sadness"]>50) {
+//        document.getElementById("emotion_result").innerHTML = "Sedih"
+//      }
+//      else if (faces[0].emotions["anger"]>50) {
+//        document.getElementById("emotion_result").innerHTML = "Marah"
+//      }
+//      else if (faces[0].emotions["surprise"]>50) {
+//        document.getElementById("emotion_result").innerHTML = "Terkejut"
+//      }
+//      else if (faces[0].emotions["disgust"]>50) {
+//        document.getElementById("emotion_result").innerHTML = "Jijik"
+//      }
+//      else if (faces[0].emotions["contempt"]>50) {
+//        document.getElementById("emotion_result").innerHTML = "Jijik"
+//      }
+//      else if (faces[0].emotions["fear"]>50) {
+//        document.getElementById("emotion_result").innerHTML = "Takut"
+//      }
+//      else {
+//        document.getElementById("emotion_result").innerHTML = ""
+//      }
     }
 
     dps.push({
         x: parseFloat(timestamp.toFixed(2)),
         y: parseFloat(faces[0].expressions["mouthOpen"])
+    });
+
+    var ts = timestamp.toFixed(2)
+    var mo = faces[0].expressions["mouthOpen"]
+
+    var pushMo = {
+        "timestamp" : ts,
+        "mouthopen" : mo
+    }
+
+    $.ajax({
+        url: "/mouthOpen",
+        type: "POST",
+        data: JSON.stringify(pushMo),
+        contentType: "application/json",
+        dataType: 'json',
+        success: function(msg){
+            console.log(msg)
+        },
+        error: function(err) {
+            console.log(err)
+        }
     });
 
     console.log(dps);

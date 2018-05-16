@@ -1,9 +1,179 @@
 from flask import Flask, render_template, Response, request, url_for, flash, redirect
+from decimal import Decimal
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SelectField, SubmitField
 from wtforms.validators import DataRequired
 
+import json
+import pymysql
+
 from app import app
+
+@app.route('/')
+
+@app.route('/index')
+def index():
+    return render_template("index.html", title="Home")
+
+@app.route('/face_detection_music')
+def face_detection():
+    return render_template("face_detection_music.html", title="Face Detection Music")
+
+@app.route('/mouthOpen', methods=['POST'])
+def mouthOpen():
+    dbconn = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='',
+        db='ffe',
+        charset='utf8mb4',
+        cursorclass=pymysql.cursors.DictCursor
+    )
+    checkMouthOpen = False
+    try:
+        if request.method == 'POST':
+            data = json.loads(request.data)
+            ts = data.get('timestamp')
+            mo = data.get('mouthopen')
+            tsStr = str(ts)
+            moStr = str(mo)
+            print('ts = {}, mo = {}'.format(tsStr, moStr))
+        with dbconn.cursor() as cursor:
+            query = "INSERT INTO `tbl_mo` (`id_mo`, `id_session`, `ts`, `mo`) VALUES (NULL, '1', '"+tsStr+"', '"+moStr+"')"
+            cursor.execute(query)
+        dbconn.commit()
+        checkMouthOpen= True
+        return "OK"
+    finally:
+        dbconn.close()
+        if checkMouthOpen == False:
+            return "False"
+
+@app.route('/countInterest', methods=["POST"])
+def countInterest():
+    dbconn = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='',
+        db='ffe',
+        charset='utf8mb4',
+        cursorclass=pymysql.cursors.DictCursor
+    )
+    checkCountInterest = False
+    try:
+        with dbconn.cursor() as cursor:
+            query = "SELECT * FROM `tbl_mo` WHERE `id_session` = '1' ORDER BY `ts` ASC"
+            cursor.execute(query)
+            data = cursor.fetchall()
+            firstTs = float(data[0]["ts"])
+            print(firstTs)
+            tFTS = type(firstTs)
+            print(tFTS)
+            listMo = []
+
+            for col in data:
+                floatTs = float(col["ts"])
+                floatMo = float(col["mo"])
+
+                tempTs = floatTs - firstTs
+                decNewTs = Decimal(tempTs)
+                newTs = round(decNewTs,2)
+
+                listMo.append(floatTs)
+                # print(col)
+                # for roww in col
+                # if floatTs != 0:
+                #     print(col-1["ts"])
+                    # floatMo = floatMo - floatMo
+                # print(col["ts"])
+                print(newTs)
+                # print(floatMo)
+
+                # if col == 1:
+                #     # firstTS = col["ts"]
+                #     # print("---------------------------------------------------- xs--------------------------")
+                #     # print("first Time : ", firstTS)
+                # else:
+                #     # print(col["id_mo"])
+                #     # print(col["id_session"])
+                #     # print(col["ts"])
+                #     # print(col["mo"])
+                # # print("first Time : ", firstTS)
+
+            # print(data)
+            # ts1 = str(data[0][2])
+            # ts2 = str(data[1][2])
+            # print(col["ts"])
+            # print(ts2)
+            checkCountInterest = True
+            print(checkCountInterest)
+            return "OK"
+    finally:
+        dbconn.close()
+        if checkCountInterest == False:
+            return "false"
+
+@app.route('/signUp')
+def signUp():
+    return render_template('signUp.html')
+
+@app.route('/signUpUser', methods=['POST'])
+def signUpUser():
+    dbconn = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='',
+        db='ffe',
+        charset='utf8mb4',
+        cursorclass=pymysql.cursors.DictCursor
+    )
+    reg_user = False
+    try:
+        user = request.form['username']
+        password = request.form['password']
+        with dbconn.cursor() as cursor:
+            query = "INSERT INTO `tbl_user` (`id_user`, `nama_user`, `password`) VALUES (NULL, '"+user+"', '"+password+"')"
+            cursor.execute(query)
+        dbconn.commit()
+        # reg_user = True
+        return "OK"
+    finally:
+        dbconn.close()
+        return "finish"
+
+@app.route('/signIn')
+def signIn():
+    return render_template('signIn.html')
+
+@app.route('/signInUser', methods=['POST'])
+def signInUser():
+    dbconn = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='',
+        db='ffe',
+        charset='utf8mb4',
+        cursorclass=pymysql.cursors.DictCursor
+    )
+    login_user = False
+    try:
+        with dbconn.cursor() as cursor:
+            user = request.form['username']
+            password = request.form['password']
+            query = ""
+            cursor.execute(query)
+            data = cursor.fetchone()
+            login_user = True
+            print(login_user)
+            print(data)
+            if data is None:
+                return "Username or Password is Wrong"
+            else:
+                return "Logged in successfully"
+    finally:
+        dbconn.close()
+        if login_user == False:
+            return "false"
 
 # class MusicForm(FlaskForm):
 #     # song = StringField('song')
@@ -34,20 +204,10 @@ from app import app
 #     )
 #     submit_song = SubmitField('Select')
 
-@app.route('/')
-
 # @app.route('/index')
 # def index():
 #     user = {"nickname" : "Adit"} #temporary
 #     return render_template("index.html", title="Home", user=user)
-
-@app.route('/index')
-def index():
-    return render_template("index.html", title="Home")
-
-@app.route('/face_detection_music')
-def face_detection():
-    return render_template("face_detection_music.html", title="Face Detection Music")
 
 # def selected_music(form):
 #     return render_template('face_detection_music.html', form=form)
