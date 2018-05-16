@@ -66,10 +66,10 @@ def countInterest():
             cursor.execute(query)
             data = cursor.fetchall()
             firstTs = float(data[0]["ts"])
-            print(firstTs)
+            # print(firstTs)
             tFTS = type(firstTs)
-            print(tFTS)
-            listMo = []
+            # print(tFTS)
+            tempListMo = []
 
             for col in data:
                 floatTs = float(col["ts"])
@@ -79,32 +79,28 @@ def countInterest():
                 decNewTs = Decimal(tempTs)
                 newTs = round(decNewTs,2)
 
-                listMo.append(floatTs)
-                # print(col)
-                # for roww in col
-                # if floatTs != 0:
-                #     print(col-1["ts"])
-                    # floatMo = floatMo - floatMo
-                # print(col["ts"])
-                print(newTs)
-                # print(floatMo)
+                tempListMo.append(floatMo)
+                # print(newTs)
+            # print("Mouth Open Temp : ")
+            # print(tempListMo[1])
+            # print("-------------------------------")
+            # print(tempListMo)
 
-                # if col == 1:
-                #     # firstTS = col["ts"]
-                #     # print("---------------------------------------------------- xs--------------------------")
-                #     # print("first Time : ", firstTS)
-                # else:
-                #     # print(col["id_mo"])
-                #     # print(col["id_session"])
-                #     # print(col["ts"])
-                #     # print(col["mo"])
-                # # print("first Time : ", firstTS)
+            listMo = []
+            for i in range(len(tempListMo)):
+                if i != 0:
+                    listMoT = tempListMo[i] - tempListMo[i-1]
+                    print(listMoT)
+                    listMo.append(abs(listMoT))
+                    print("iterasi ke %d"%i)
+                    print(listMo)
+                else:
+                    listMo.append(abs(tempListMo[i]))
+                    print(listMo)
+                    print("iterasi ke %d"%i)
 
-            # print(data)
-            # ts1 = str(data[0][2])
-            # ts2 = str(data[1][2])
-            # print(col["ts"])
-            # print(ts2)
+            print("List MO : ")
+            print(listMo)
             checkCountInterest = True
             print(checkCountInterest)
             return "OK"
