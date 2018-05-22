@@ -6,6 +6,8 @@ from wtforms.validators import DataRequired
 
 import json
 import pymysql
+import datetime
+import time
 
 from app import app
 
@@ -44,7 +46,9 @@ def mouthOpen():
             moStr = str(mo)
             print('ts = {}, mo = {}'.format(tsStr, moStr))
         with dbconn.cursor() as cursor:
-            query = "INSERT INTO `tbl_mo` (`id_mo`, `id_session`, `ts`, `mo`) VALUES (NULL, '1', '"+tsStr+"', '"+moStr+"')"
+            idSession = session.get('id_session')
+            print(idSession)
+            query = "INSERT INTO `tbl_mo` (`id_mo`, `id_session`, `ts`, `mo`) VALUES (NULL, '"+idSession+"', '"+tsStr+"', '"+moStr+"')"
             cursor.execute(query)
         dbconn.commit()
         checkMouthOpen= True
@@ -67,59 +71,32 @@ def countInterest():
     checkCountInterest = False
     try:
         with dbconn.cursor() as cursor:
-            query = "SELECT * FROM `tbl_mo` WHERE `id_session` = '1' ORDER BY `ts` ASC"
+            idSession = session.get('id_session')
+            print(idSession)
+            query = "SELECT * FROM `tbl_mo` WHERE `id_session` = '"+idSession+"' ORDER BY `ts` ASC"
             cursor.execute(query)
             data = cursor.fetchall()
-            firstTs = float(data[0]["ts"])
-            # print(firstTs)
-            # tFTS = type(firstTs)
-            # print(tFTS)
-            listTs = []
-            tempListMo = []
-
-            for col in data:
-                floatTs = float(col["ts"])
-                floatMo = float(col["mo"])
-
-                tempTs = floatTs - firstTs
-                # decNewTs = Decimal(tempTs)
-                newTs = round(tempTs,2)
-
-                # print(newTs)
-                listTs.append(newTs)
-                tempListMo.append(floatMo)
-
-            # print("Mouth Open Temp : ")
-            # print(tempListMo[1])
-            # print("-------------------------------")
-            # print(tempListMo)
-            # print(newTs)
-
-            listMo = []
-            for i in range(len(tempListMo)):
-                if i != 0:
-                    listMoT = tempListMo[i] - tempListMo[i-1]
-                    # print(listMoT)
-                    listMo.append(abs(listMoT))
-                    # print("iterasi ke %d"%i)
-                    # print(listMo)
-                else:
-                    listMo.append(abs(tempListMo[i]))
-                    # print(listMo)
-                    # print("iterasi ke %d"%i)
-
-            print("List TS : ")
-            print(listTs)
-            print(" ----------------------- ")
-            print("List MO : ")
-            print(listMo)
+            print(data)
             checkCountInterest = True
             print(checkCountInterest)
-            return render_template('graphResult.html', listTs = listTs, listMo = listMo)
+
+            if len(data) is 0:
+                result = {'success': False, 'url': None, 'message': 'Data Tabel mo Kosong'}
+                return jsonify(result)
+            else:
+                result = {'success': True, 'url': '/graphResult', 'message': 'Success', 'dataInterestValue': data}
+                # 'id_session': data["id_session"], 'time': data["ts"],
+                #                           'mo': data["mo"],
+                return jsonify(result)
+            # return render_template('graphResult.html', listTs = listTs, listMo = listMo)
     finally:
         dbconn.close()
         if checkCountInterest == False:
             return "false"
+
+@app.route('/graphResult')
+def graphResult():
+    return render_template('graphResult.html')
 
 @app.route('/signUp')
 def signUp():
@@ -148,11 +125,13 @@ def signUpUser():
                 query = "INSERT INTO `tbl_user` (`id_user`, `nama_user`, `password`) VALUES (NULL, '" + user + "', '" + password + "')"
                 cursor.execute(query)
                 dbconn.commit()
-                result = {'success': True, 'url': '/signIn', 'user': user, 'pass': password, 'message': 'Register Success'}
+                result = {'success': True, 'url': '/signIn', 'user': user, 'pass': password,
+                          'message': 'Register Success'}
                 return jsonify(result)
                 # return json.dumps({'status': 'OK', 'user': user, 'pass': password})
             else:
-                result = {'success': False, 'url': None, 'error': str(data[0]), 'message': 'Username is already taken, please choose another username'}
+                result = {'success': False, 'url': None, 'error': str(data[0]),
+                          'message': 'Username is already taken, please choose another username'}
                 return jsonify(result)
                 # return json.dumps({'error': str(data[0]), 'message': 'Username is already taken, please choose another username'})
     finally:
@@ -186,22 +165,57 @@ def signInUser():
             cursor.execute(query)
             data = cursor.fetchone()
             login_user = True
+            idUser = data['id_user']
             print(login_user)
             print(data)
+            print(idUser)
+
             if data is None:
                 flash('Username or Password is Wrong')
                 result = {'success': False, 'url': None, 'message': 'Username or Password is Wrong'}
                 return jsonify(result)
             else:
+                curentTime = getCurrentTime()
                 session['logged_in'] = True
-                result = {'success': True, 'url': '/', 'username': user, 'message': 'Login Success'}
-                return jsonify(result)
-                # return index()
+                session['username'] = user
+                session['id_user'] = idUser
+                session['login_date'] = curentTime
+
+                queryInsertSession = "INSERT INTO `tbl_session` (`id_session`, `id_user`, `usr_timestamp`) VALUES (NULL, '" + str(idUser) + "', '" + curentTime + "')"
+                cursor.execute(queryInsertSession)
+                dbconn.commit()
+
+                print(session.get('logged_in'))
+                print(session.get('username'))
+                print(session.get('id_user'))
+                print(session.get('login_date'))
+
+                id_user = session.get('id_user')
+                user_time = session.get('login_date')
+                queryGetSession = "SELECT * FROM `tbl_session` WHERE `id_user` = '" + str(id_user) + "' AND `usr_timestamp` = '" + str(user_time) + "'"
+                cursor.execute(queryGetSession)
+                dataSession = cursor.fetchone()
+
+                if len(dataSession) is 0:
+                    result = {'success': False, 'url': None, 'message': 'Data Session Kosong'}
+                    return jsonify(result)
+                else:
+                    id_session = dataSession['id_session']
+                    session['id_session'] = id_session
+                    print(session.get('id_session'))
+                    result = {'success': True, 'url': '/', 'id_user': idUser, 'login_date': curentTime, 'username': user, 'message': 'Login Success'}
+                    return jsonify(result)
+                #     # return index()
     finally:
         dbconn.close()
         if login_user == False:
             result = {'success':False,'url':None}
             return jsonify(result)
+
+def getCurrentTime():
+    waktu = time.time()
+    waktuSekarang = datetime.datetime.fromtimestamp(waktu).strftime('%Y-%m-%d %H:%M:%S')
+    return waktuSekarang
 
 @app.route('/signOut')
 def signOut():
