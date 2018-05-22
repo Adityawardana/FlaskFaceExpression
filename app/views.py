@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Response, request, url_for, flash, redirect
+from flask import Flask, render_template, Response, request, url_for, flash, redirect, json, session, jsonify
 from decimal import Decimal
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SelectField, SubmitField
@@ -10,14 +10,19 @@ import pymysql
 from app import app
 
 @app.route('/')
-
 @app.route('/index')
 def index():
-    return render_template("index.html", title="Home")
+    if not session.get('logged_in'):
+        return render_template("index.html", title="Home")
+    else:
+        return render_template("index_home.html", title="Index Home")
 
 @app.route('/face_detection_music')
 def face_detection():
-    return render_template("face_detection_music.html", title="Face Detection Music")
+    if session.get('logged_in'):
+        return render_template("face_detection_music.html", title="Face Detection Music")
+    else:
+        return redirect(url_for('index'))
 
 @app.route('/mouthOpen', methods=['POST'])
 def mouthOpen():
@@ -67,8 +72,9 @@ def countInterest():
             data = cursor.fetchall()
             firstTs = float(data[0]["ts"])
             # print(firstTs)
-            tFTS = type(firstTs)
+            # tFTS = type(firstTs)
             # print(tFTS)
+            listTs = []
             tempListMo = []
 
             for col in data:
@@ -76,34 +82,40 @@ def countInterest():
                 floatMo = float(col["mo"])
 
                 tempTs = floatTs - firstTs
-                decNewTs = Decimal(tempTs)
-                newTs = round(decNewTs,2)
+                # decNewTs = Decimal(tempTs)
+                newTs = round(tempTs,2)
 
-                tempListMo.append(floatMo)
                 # print(newTs)
+                listTs.append(newTs)
+                tempListMo.append(floatMo)
+
             # print("Mouth Open Temp : ")
             # print(tempListMo[1])
             # print("-------------------------------")
             # print(tempListMo)
+            # print(newTs)
 
             listMo = []
             for i in range(len(tempListMo)):
                 if i != 0:
                     listMoT = tempListMo[i] - tempListMo[i-1]
-                    print(listMoT)
+                    # print(listMoT)
                     listMo.append(abs(listMoT))
-                    print("iterasi ke %d"%i)
-                    print(listMo)
+                    # print("iterasi ke %d"%i)
+                    # print(listMo)
                 else:
                     listMo.append(abs(tempListMo[i]))
-                    print(listMo)
-                    print("iterasi ke %d"%i)
+                    # print(listMo)
+                    # print("iterasi ke %d"%i)
 
+            print("List TS : ")
+            print(listTs)
+            print(" ----------------------- ")
             print("List MO : ")
             print(listMo)
             checkCountInterest = True
             print(checkCountInterest)
-            return "OK"
+            return render_template('graphResult.html', listTs = listTs, listMo = listMo)
     finally:
         dbconn.close()
         if checkCountInterest == False:
@@ -111,10 +123,12 @@ def countInterest():
 
 @app.route('/signUp')
 def signUp():
-    return render_template('signUp.html')
+    return render_template('signUp.html', page="signUp")
 
 @app.route('/signUpUser', methods=['POST'])
 def signUpUser():
+    user = request.form['username']
+    password = request.form['password']
     dbconn = pymysql.connect(
         host='localhost',
         user='root',
@@ -125,24 +139,38 @@ def signUpUser():
     )
     reg_user = False
     try:
-        user = request.form['username']
-        password = request.form['password']
         with dbconn.cursor() as cursor:
-            query = "INSERT INTO `tbl_user` (`id_user`, `nama_user`, `password`) VALUES (NULL, '"+user+"', '"+password+"')"
-            cursor.execute(query)
-        dbconn.commit()
-        # reg_user = True
-        return "OK"
+            queryCheckUserAvailability = "SELECT * from tbl_user where nama_user = '" + user + "'"
+            cursor.execute(queryCheckUserAvailability)
+            data = cursor.fetchall()
+            reg_user = True
+            if len(data) is 0:
+                query = "INSERT INTO `tbl_user` (`id_user`, `nama_user`, `password`) VALUES (NULL, '" + user + "', '" + password + "')"
+                cursor.execute(query)
+                dbconn.commit()
+                result = {'success': True, 'url': '/signIn', 'user': user, 'pass': password, 'message': 'Register Success'}
+                return jsonify(result)
+                # return json.dumps({'status': 'OK', 'user': user, 'pass': password})
+            else:
+                result = {'success': False, 'url': None, 'error': str(data[0]), 'message': 'Username is already taken, please choose another username'}
+                return jsonify(result)
+                # return json.dumps({'error': str(data[0]), 'message': 'Username is already taken, please choose another username'})
     finally:
         dbconn.close()
-        return "finish"
+        if reg_user == False:
+            return "finish"
 
 @app.route('/signIn')
 def signIn():
-    return render_template('signIn.html')
+    if session.get('logged_in'):
+        return redirect(url_for('index'))
+    else:
+        return render_template('signIn.html', page="signIn")
 
 @app.route('/signInUser', methods=['POST'])
 def signInUser():
+    user = request.form['username']
+    password = request.form['password']
     dbconn = pymysql.connect(
         host='localhost',
         user='root',
@@ -154,22 +182,32 @@ def signInUser():
     login_user = False
     try:
         with dbconn.cursor() as cursor:
-            user = request.form['username']
-            password = request.form['password']
-            query = ""
+            query = "SELECT * from tbl_user where nama_user = '" + user + "' AND password = '" + password + "'"
             cursor.execute(query)
             data = cursor.fetchone()
             login_user = True
             print(login_user)
             print(data)
             if data is None:
-                return "Username or Password is Wrong"
+                flash('Username or Password is Wrong')
+                result = {'success': False, 'url': None, 'message': 'Username or Password is Wrong'}
+                return jsonify(result)
             else:
-                return "Logged in successfully"
+                session['logged_in'] = True
+                result = {'success': True, 'url': '/', 'username': user, 'message': 'Login Success'}
+                return jsonify(result)
+                # return index()
     finally:
         dbconn.close()
         if login_user == False:
-            return "false"
+            result = {'success':False,'url':None}
+            return jsonify(result)
+
+@app.route('/signOut')
+def signOut():
+    session['logged_in'] = False
+    return redirect(url_for('index'))
+    # return index()
 
 # class MusicForm(FlaskForm):
 #     # song = StringField('song')

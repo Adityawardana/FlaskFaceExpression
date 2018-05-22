@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <table border="1">
+            {% for keyTs in listTs %}
+                <tr>
+                    <td>{{ keyTs }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div>
+        <table border="1">
+            {% for keyMo in listMo %}
+                <tr>
+                    <td>{{ keyMo }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

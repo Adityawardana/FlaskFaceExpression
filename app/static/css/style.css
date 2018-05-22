@@ -124,3 +124,13 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+body > .grid {
+    height: 100%;
+}
+#column-login {
+    max-width: 450px;
+}
+#column-register {
+    max-width: 450px;
+}
