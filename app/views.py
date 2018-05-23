@@ -47,13 +47,15 @@ def mouthOpen():
             tsStr = str(ts)
             moStr = str(mo)
             print('ts = {}, mo = {}'.format(tsStr, moStr))
-        with dbconn.cursor() as cursor:
-            query = "INSERT INTO tbl_mo ('id_session', 'ts', 'mo') VALUES (%s, %s, %s)"
-            # query = "INSERT INTO `tbl_mo` (`id_mo`, `id_session`, `ts`, `mo`) VALUES (NULL, '"+idSession+"', '"+tsStr+"', '"+moStr+"')"
-            cursor.execute(query, (str(31), tsStr, moStr))
-        dbconn.commit()
-        checkMouthOpen= True
-        return "OK"
+            with dbconn.cursor() as cursor:
+                query = "INSERT INTO `tbl_mo` (`id_session`, `ts`, `mo`) VALUES (%s, %s, %s)"
+                # query = "INSERT INTO `tbl_mo` (`id_mo`, `id_session`, `ts`, `mo`) VALUES (NULL, '"+idSession+"', '"+tsStr+"', '"+moStr+"')"
+                cursor.execute(query, (str(idSession), tsStr, moStr))
+            dbconn.commit()
+            checkMouthOpen= True
+            return "OK"
+    except Exception as err:
+        print(err)
     finally:
         dbconn.close()
         if checkMouthOpen == False:
@@ -74,8 +76,8 @@ def countInterest():
         with dbconn.cursor() as cursor:
             idSession = session.get('id_session')
             print(idSession)
-            query = "SELECT * FROM `tbl_mo` WHERE `id_session` = '"+idSession+"' ORDER BY `ts` ASC"
-            cursor.execute(query)
+            query = "SELECT * FROM `tbl_mo` WHERE `id_session` = %s ORDER BY `ts` ASC"
+            cursor.execute(query, (idSession,))
             data = cursor.fetchall()
             print(data)
             checkCountInterest = True
@@ -90,6 +92,9 @@ def countInterest():
                 #                           'mo': data["mo"],
                 return jsonify(result)
             # return render_template('graphResult.html', listTs = listTs, listMo = listMo)
+    except Exception as err:
+        print(err)
+        return "error"
     finally:
         dbconn.close()
         if checkCountInterest == False:
@@ -118,13 +123,13 @@ def signUpUser():
     reg_user = False
     try:
         with dbconn.cursor() as cursor:
-            queryCheckUserAvailability = "SELECT * from tbl_user where nama_user = '" + user + "'"
-            cursor.execute(queryCheckUserAvailability)
+            queryCheckUserAvailability = "SELECT * from tbl_user where nama_user = %s"
+            cursor.execute(queryCheckUserAvailability, (user,))
             data = cursor.fetchall()
             reg_user = True
             if len(data) is 0:
-                query = "INSERT INTO `tbl_user` (`id_user`, `nama_user`, `password`) VALUES (NULL, '" + user + "', '" + password + "')"
-                cursor.execute(query)
+                query = "INSERT INTO `tbl_user` (`nama_user`, `password`) VALUES (%s, %s)"
+                cursor.execute(query, (user, password))
                 dbconn.commit()
                 result = {'success': True, 'url': '/signIn', 'user': user, 'pass': password,
                           'message': 'Register Success'}
@@ -135,6 +140,8 @@ def signUpUser():
                           'message': 'Username is already taken, please choose another username'}
                 return jsonify(result)
                 # return json.dumps({'error': str(data[0]), 'message': 'Username is already taken, please choose another username'})
+    except Exception as err:
+        print(err)
     finally:
         dbconn.close()
         if reg_user == False:
@@ -162,8 +169,8 @@ def signInUser():
     login_user = False
     try:
         with dbconn.cursor() as cursor:
-            query = "SELECT * from tbl_user where nama_user = '" + user + "' AND password = '" + password + "'"
-            cursor.execute(query)
+            query = "SELECT * from `tbl_user` where `nama_user` = %s AND `password` = %s"
+            cursor.execute(query, (user, password))
             data = cursor.fetchone()
             login_user = True
             idUser = data['id_user']
@@ -182,8 +189,8 @@ def signInUser():
                 session['id_user'] = idUser
                 session['login_date'] = curentTime
 
-                queryInsertSession = "INSERT INTO `tbl_session` (`id_session`, `id_user`, `usr_timestamp`) VALUES (NULL, '" + str(idUser) + "', '" + curentTime + "')"
-                cursor.execute(queryInsertSession)
+                queryInsertSession = "INSERT INTO `tbl_session` (`id_user`, `usr_timestamp`) VALUES (%s, %s)"
+                cursor.execute(queryInsertSession, (str(idUser), str(curentTime)))
                 dbconn.commit()
 
                 print(session.get('logged_in'))
@@ -193,8 +200,8 @@ def signInUser():
 
                 id_user = session.get('id_user')
                 user_time = session.get('login_date')
-                queryGetSession = "SELECT * FROM `tbl_session` WHERE `id_user` = '" + str(id_user) + "' AND `usr_timestamp` = '" + str(user_time) + "'"
-                cursor.execute(queryGetSession)
+                queryGetSession = "SELECT * FROM `tbl_session` WHERE `id_user` = %s AND `usr_timestamp` = %s"
+                cursor.execute(queryGetSession, (str(id_user), str(user_time)))
                 dataSession = cursor.fetchone()
 
                 if len(dataSession) is 0:
@@ -206,7 +213,9 @@ def signInUser():
                     print(session.get('id_session'))
                     result = {'success': True, 'url': '/', 'id_user': idUser, 'login_date': curentTime, 'username': user, 'message': 'Login Success'}
                     return jsonify(result)
-                #     # return index()
+    except Exception as err:
+        print(err)
+        return "error"
     finally:
         dbconn.close()
         if login_user == False:
