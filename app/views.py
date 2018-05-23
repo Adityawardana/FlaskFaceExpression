@@ -28,6 +28,8 @@ def face_detection():
 
 @app.route('/mouthOpen', methods=['POST'])
 def mouthOpen():
+    idSession = session.get('id_session')
+    print(idSession)
     dbconn = pymysql.connect(
         host='localhost',
         user='root',
@@ -46,10 +48,9 @@ def mouthOpen():
             moStr = str(mo)
             print('ts = {}, mo = {}'.format(tsStr, moStr))
         with dbconn.cursor() as cursor:
-            idSession = session.get('id_session')
-            print(idSession)
-            query = "INSERT INTO `tbl_mo` (`id_mo`, `id_session`, `ts`, `mo`) VALUES (NULL, '"+idSession+"', '"+tsStr+"', '"+moStr+"')"
-            cursor.execute(query)
+            query = "INSERT INTO tbl_mo ('id_session', 'ts', 'mo') VALUES (%s, %s, %s)"
+            # query = "INSERT INTO `tbl_mo` (`id_mo`, `id_session`, `ts`, `mo`) VALUES (NULL, '"+idSession+"', '"+tsStr+"', '"+moStr+"')"
+            cursor.execute(query, (str(31), tsStr, moStr))
         dbconn.commit()
         checkMouthOpen= True
         return "OK"
