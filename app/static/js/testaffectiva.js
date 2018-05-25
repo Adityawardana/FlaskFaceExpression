@@ -104,46 +104,8 @@ $(document).ready(function(){
     $('#results').html("");
     $("#modal").hide();
 
-    //log('#results', "Timestamp: " + timestamp.toFixed(2));
-    //log('#results', "Number of faces found: " + faces.length);
-
     if (faces.length > 0) {
-
-      // log('#results', "Appearance: " + JSON.stringify(faces[0].appearance));
-      //log('#results', "Emotions: " + JSON.stringify(faces[0].emotions, function(key, val) {
-      //  return val.toFixed ? Number(val.toFixed(0)) : val;
-      //}));
-       //log('#results', "Expressions: " + JSON.stringify(faces[0].expressions, function(key, val) {
-       //  return val.toFixed ? Number(val.toFixed(0)) : val;
-       //}));
-      //log('#results', "Emoji: " + faces[0].emojis.dominantEmoji);
       drawFeaturePoints(image, faces[0].featurePoints);
-
-//      // Primitive UI for happy
-//      if (faces[0].emotions["joy"]>50) {
-//        document.getElementById("emotion_result").innerHTML = "Senang"
-//      }
-//      else if (faces[0].emotions["sadness"]>50) {
-//        document.getElementById("emotion_result").innerHTML = "Sedih"
-//      }
-//      else if (faces[0].emotions["anger"]>50) {
-//        document.getElementById("emotion_result").innerHTML = "Marah"
-//      }
-//      else if (faces[0].emotions["surprise"]>50) {
-//        document.getElementById("emotion_result").innerHTML = "Terkejut"
-//      }
-//      else if (faces[0].emotions["disgust"]>50) {
-//        document.getElementById("emotion_result").innerHTML = "Jijik"
-//      }
-//      else if (faces[0].emotions["contempt"]>50) {
-//        document.getElementById("emotion_result").innerHTML = "Jijik"
-//      }
-//      else if (faces[0].emotions["fear"]>50) {
-//        document.getElementById("emotion_result").innerHTML = "Takut"
-//      }
-//      else {
-//        document.getElementById("emotion_result").innerHTML = ""
-//      }
     }
 
     dps.push({
@@ -180,8 +142,6 @@ $(document).ready(function(){
     }
 
     chart.render();
-//    startAudioPlayer();
-    //    document.getElementById("selected_song").play();
   });
 
   //Draw the detected facial feature points on the image
@@ -200,17 +160,6 @@ $(document).ready(function(){
       contxt.stroke();
     }
   }
-
-//  function checkVisibilityOfModal(){
-//    if($('#modal').css("display") == 'none') {
-////        startAudioPlayer();
-//        console.log("audio player started");
-//        return true;
-//    }
-//    else {
-//        return false;
-//    }
-//  }
 
     // When the user clicks on <span> (x), close the modal
     close_modal.onclick = function() {
@@ -484,6 +433,8 @@ function onStart() {
 
 //function executes when the Stop button is pushed.
 function onStop() {
+  var graph_result_modal = document.getElementById('modal-result');
+
   log('#logs', "Clicked the stop button");
   if (detector && detector.isRunning) {
     detector.removeEventListener();
@@ -491,15 +442,8 @@ function onStop() {
     $("#audioPlayer")[0].pause();
     $("#audioPlayer")[0].currentTime = 0;
   }
+  graph_result_modal.style.display = "block";
   log('#logs', "Audio Stopped");
-
-//  var dwn = document.createElement("a");
-//  adown.appendChild(dwn);
-//  document.getElementById("download-txt").appendChild(dwn);
-//
-//  dwn.download = "export.txt";
-//  dwn.href = "data:text/plain;base64," + btoa(JSON.stringify(dps));
-//  dwn.innerHTML = "download example text";
 }
 
 //function executes when the Reset button is pushed.

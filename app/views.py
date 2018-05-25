@@ -61,7 +61,7 @@ def mouthOpen():
         if checkMouthOpen == False:
             return "False"
 
-@app.route('/countInterest', methods=["POST"])
+@app.route('/countInterest', methods=['GET', 'POST'])
 def countInterest():
     dbconn = pymysql.connect(
         host='localhost',
@@ -178,7 +178,7 @@ def signInUser():
             print(data)
             print(idUser)
 
-            if data is None:
+            if len(data) is 0:
                 flash('Username or Password is Wrong')
                 result = {'success': False, 'url': None, 'message': 'Username or Password is Wrong'}
                 return jsonify(result)

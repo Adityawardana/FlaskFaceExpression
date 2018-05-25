@@ -1,28 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <div>
-        <table border="1">
-            {% for keyTs in listTs %}
-                <tr>
-                    <td>{{ keyTs }}</td>
-                </tr>
-            {% endfor %}
-        </table>
+{% extends "base.html" %}
+{% block content %}
+    <div class="ui text container">
+        <h1 class="ui header">
+            Grafik Hasil Percobaan
+        </h1>
     </div>
 
-    <div>
-        <table border="1">
-            {% for keyMo in listMo %}
-                <tr>
-                    <td>{{ keyMo }}</td>
-                </tr>
-            {% endfor %}
-        </table>
+    <div class="ui container">
+        <button id="graph-result-btn" class="ui large primary submit button white-text" type="button">See Graph</button>
     </div>
-</body>
-</html>
+
+    <div id="graph-result-container">
+
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $('#graph-result-btn').click(function() {
+                $.ajax({
+                    url: '/countInterest',
+                    data: {
+
+                    },
+                    type: 'POST',
+                    success: function(response) {
+                        console.log(response.success);
+                        console.log("Data Terkirim");
+                        if(response.success){
+                          console.log("Berhasil");
+                          console.log(response.dataInterestValue);
+                        }else{
+                          console.log("Tidak Berhasil");
+                         }
+                    },
+                    error: function(error) {
+                        console.log("Data Tidak Terkirim");
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

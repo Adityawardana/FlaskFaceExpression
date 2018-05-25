@@ -23,8 +23,8 @@
 	left: 0;
 	height: 100%;
 	width: 100%;
-	background: rgba( 255, 255, 255, .8 )
-				url('http://www.cakesncraft.com/cnc/eshopper/images/default.gif')
+	background: rgba( 255, 255, 255, 0.9 )
+				url('/static/image/loader.svg')
 				50% 50%
 				no-repeat;
 }
@@ -133,4 +133,9 @@ body > .grid {
 }
 #column-register {
     max-width: 450px;
+}
+
+#graph-result-container {
+    height: 400px;
+    width:100%;
 }

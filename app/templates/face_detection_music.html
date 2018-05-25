@@ -3,7 +3,9 @@
     <div class="ui container">
         <h1 class="center">Emotion Recognition</h1>
 
-        <div id="chartContainer" style="height: 400px; width:100%;"></div>
+        <div id="chartContainer" style="height: 400px; width:100%;">
+
+        </div>
 
         <div class="ui fluid container">
             <div class="row">
@@ -81,6 +83,16 @@
             <button id="tetapSemangat-pl">Tetap Semangat - add to Playlist</button>
             <button id="uptownFunk-pl">Uptown Funk - add to Playlist</button>
             <button id="weWillNotGoDown-pl">We Will Not Go Down - add to Playlist</button>
+        </div>
+    </div>
+
+    <div id="modal-result" class="modal-p">
+        <div class="modal-content">
+            <div class="ui large positive button white-text">
+                <a href="{{ url_for('graphResult') }}">
+                    See Result
+                </a>
+            </div>
         </div>
     </div>
 
