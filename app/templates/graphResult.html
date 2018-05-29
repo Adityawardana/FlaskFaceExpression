@@ -16,6 +16,8 @@
 
     <script>
         $(document).ready(function(){
+            var dataGraphResult = [];
+
             $('#graph-result-btn').click(function() {
                 $.ajax({
                     url: '/countInterest',
@@ -28,10 +30,55 @@
                         console.log("Data Terkirim");
                         if(response.success){
                           console.log("Berhasil");
-                          console.log(response.dataInterestValue);
+                        //   console.log(response.dataInterestValue);
+                        // console.log(response.dataInterestValue[0].mo);
+                        //   <!--console.log(response);-->
+                          console.log(response.dataInterestValue.length);
+
+                          for (i = 0; i < response.dataInterestValue.length; i++){
+                            var firstTS = response.dataInterestValue[0].ts;
+                            var recentTS = response.dataInterestValue[i].ts;
+
+                            // <!--console.log(typeof firstTS);-->
+                            var floatFirstTS = parseFloat(firstTS);
+                            var floatRecentTS = parseFloat(recentTS);
+                            var resultTS = floatRecentTS - floatFirstTS;
+
+                            // <!--console.log(resultTS);-->
+
+                            if(i != 0){
+                                var numlastMO = i--;
+                                // <!--console.log(i);-->
+                                // <!--console.log(numlastMO);-->
+
+                                var lastMO = response.dataInterestValue[0].mo;
+                                var recentMO = response.dataInterestValue[i].mo;
+                                var resultMO = parseFloat(recentMO) - parseFloat(lastMO);
+                                // <!--console.log(resultMO);-->
+                            }
+                            else {
+                                var resultMO = parseFloat(recentMO);
+                            }
+
+                            dataGraphResult.push({
+                                time: resultTS,
+                                mouth: resultMO
+                            });
+
+                            // <!--console.log(response.dataInterestValue[i]);-->
+                            // <!--console.log(response.dataInterestValue[i].mo);-->
+                          }
+
+                          console.log(dataGraphResult);
+
+                        //   <!--var data = response;-->
+                        //   var jsonDataInterestValue = JSON.stringify(response);
+
+                        //   <!--console.log(jsonDataInterestValue);-->
+                        //   <!--console.log(response.dataInterestValue.mo[0]);-->
                         }else{
                           console.log("Tidak Berhasil");
-                         }
+                        }
                     },
                     error: function(error) {
                         console.log("Data Tidak Terkirim");
