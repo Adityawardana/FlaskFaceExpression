@@ -17,6 +17,20 @@
     <script>
         $(document).ready(function(){
             var dataGraphResult = [];
+            var chart = new CanvasJS.Chart("graph-result-container", {
+                title: {
+                    text: "Grafik Ketertarikan User"
+                },
+                axisY: {
+                    title: "Nilai Ketertarikan",
+                    includeZero: true
+                },
+                data: [{
+                    type: "splineArea",
+                    color: "rgba(54,158,173,.7)",
+                    dataPoints: dataGraphResult
+                }]
+            });
 
             $('#graph-result-btn').click(function() {
                 $.ajax({
@@ -28,56 +42,46 @@
                     success: function(response) {
                         console.log(response.success);
                         console.log("Data Terkirim");
-                        if(response.success){
-                          console.log("Berhasil");
-                        //   console.log(response.dataInterestValue);
-                        // console.log(response.dataInterestValue[0].mo);
-                        //   <!--console.log(response);-->
-                          console.log(response.dataInterestValue.length);
+                        if(response.success == true){
+                            var dataLength = response.dataInterestValue.length;
+                            var i;
+                            var one = 1;
 
-                          for (i = 0; i < response.dataInterestValue.length; i++){
-                            var firstTS = response.dataInterestValue[0].ts;
-                            var recentTS = response.dataInterestValue[i].ts;
+                            console.log("Berhasil");
+                            // console.log(i);
+                            // console.log(typeof i);
+                            console.log(dataLength);
+                            // console.log(typeof dataLength);
 
-                            // <!--console.log(typeof firstTS);-->
-                            var floatFirstTS = parseFloat(firstTS);
-                            var floatRecentTS = parseFloat(recentTS);
-                            var resultTS = floatRecentTS - floatFirstTS;
+                            for (i = 0; i < dataLength; i++){
+                                var firstTS = response.dataInterestValue[0].ts;
+                                var recentTS = response.dataInterestValue[i].ts;
 
-                            // <!--console.log(resultTS);-->
+                                var floatFirstTS = parseFloat(firstTS);
+                                var floatRecentTS = parseFloat(recentTS);
+                                var tempResultTS = floatRecentTS - floatFirstTS;
+                                var resultTS = tempResultTS.toFixed(2);
+                                console.log(i);
 
-                            if(i != 0){
-                                var numlastMO = i--;
-                                // <!--console.log(i);-->
-                                // <!--console.log(numlastMO);-->
+                                if(i == 0){
+                                    var recentMO = response.dataInterestValue[i].mo;
+                                    var resultMO = parseFloat(recentMO);
+                                }
+                                else {
+                                    var lastMO = response.dataInterestValue[i-one].mo;
+                                    var recentMO = response.dataInterestValue[i].mo;
+                                    var resultMO = parseFloat(recentMO) - parseFloat(lastMO);
+                                }
 
-                                var lastMO = response.dataInterestValue[0].mo;
-                                var recentMO = response.dataInterestValue[i].mo;
-                                var resultMO = parseFloat(recentMO) - parseFloat(lastMO);
-                                // <!--console.log(resultMO);-->
+                                dataGraphResult.push({
+                                    x: Math.abs(resultTS),
+                                    y: Math.abs(resultMO)
+                                });
                             }
-                            else {
-                                var resultMO = parseFloat(recentMO);
-                            }
-
-                            dataGraphResult.push({
-                                time: resultTS,
-                                mouth: resultMO
-                            });
-
-                            // <!--console.log(response.dataInterestValue[i]);-->
-                            // <!--console.log(response.dataInterestValue[i].mo);-->
-                          }
-
-                          console.log(dataGraphResult);
-
-                        //   <!--var data = response;-->
-                        //   var jsonDataInterestValue = JSON.stringify(response);
-
-                        //   <!--console.log(jsonDataInterestValue);-->
-                        //   <!--console.log(response.dataInterestValue.mo[0]);-->
+                            console.log(dataGraphResult);
+                            chart.render();
                         }else{
-                          console.log("Tidak Berhasil");
+                            console.log("Tidak Berhasil");
                         }
                     },
                     error: function(error) {
