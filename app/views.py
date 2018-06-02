@@ -8,6 +8,8 @@ import json
 import pymysql
 import datetime
 import time
+import base64
+import random
 
 from app import app
 
@@ -18,91 +20,6 @@ def index():
         return render_template("index.html", title="Home")
     else:
         return render_template("index_home.html", title="Index Home")
-
-@app.route('/face_detection_music')
-def face_detection():
-    if session.get('logged_in'):
-        return render_template("face_detection_music.html", title="Face Detection Music")
-    else:
-        return redirect(url_for('index'))
-
-@app.route('/mouthOpen', methods=['POST'])
-def mouthOpen():
-    idSession = session.get('id_session')
-    print(idSession)
-    dbconn = pymysql.connect(
-        host='localhost',
-        user='root',
-        password='',
-        db='ffe',
-        charset='utf8mb4',
-        cursorclass=pymysql.cursors.DictCursor
-    )
-    checkMouthOpen = False
-    try:
-        if request.method == 'POST':
-            data = json.loads(request.data)
-            ts = data.get('timestamp')
-            mo = data.get('mouthopen')
-            tsStr = str(ts)
-            moStr = str(mo)
-            print('ts = {}, mo = {}'.format(tsStr, moStr))
-            with dbconn.cursor() as cursor:
-                query = "INSERT INTO `tbl_mo` (`id_session`, `ts`, `mo`) VALUES (%s, %s, %s)"
-                # query = "INSERT INTO `tbl_mo` (`id_mo`, `id_session`, `ts`, `mo`) VALUES (NULL, '"+idSession+"', '"+tsStr+"', '"+moStr+"')"
-                cursor.execute(query, (str(idSession), tsStr, moStr))
-            dbconn.commit()
-            checkMouthOpen= True
-            return "OK"
-    except Exception as err:
-        print(err)
-    finally:
-        dbconn.close()
-        if checkMouthOpen == False:
-            return "False"
-
-@app.route('/countInterest', methods=['GET', 'POST'])
-def countInterest():
-    dbconn = pymysql.connect(
-        host='localhost',
-        user='root',
-        password='',
-        db='ffe',
-        charset='utf8mb4',
-        cursorclass=pymysql.cursors.DictCursor
-    )
-    checkCountInterest = False
-    try:
-        with dbconn.cursor() as cursor:
-            idSession = session.get('id_session')
-            print(idSession)
-            query = "SELECT * FROM `tbl_mo` WHERE `id_session` = %s ORDER BY `ts` ASC"
-            cursor.execute(query, (idSession,))
-            data = cursor.fetchall()
-            print(data)
-            checkCountInterest = True
-            print(checkCountInterest)
-
-            if len(data) is 0:
-                result = {'success': False, 'url': None, 'message': 'Data Tabel mo Kosong'}
-                return jsonify(result)
-            else:
-                result = {'success': True, 'url': '/graphResult', 'message': 'Success', 'dataInterestValue': data}
-                # 'id_session': data["id_session"], 'time': data["ts"],
-                #                           'mo': data["mo"],
-                return jsonify(result)
-            # return render_template('graphResult.html', listTs = listTs, listMo = listMo)
-    except Exception as err:
-        print(err)
-        return "error"
-    finally:
-        dbconn.close()
-        if checkCountInterest == False:
-            return "false"
-
-@app.route('/graphResult')
-def graphResult():
-    return render_template('graphResult.html')
 
 @app.route('/signUp')
 def signUp():
@@ -231,7 +148,131 @@ def getCurrentTime():
 def signOut():
     session['logged_in'] = False
     return redirect(url_for('index'))
-    # return index()
+    
+@app.route('/face_detection_music')
+def face_detection():
+    if session.get('logged_in'):
+        userName = session.get('username')
+        tokEncd = getKeyToken(userName)
+        session['token'] = tokEncd
+        print(tokEncd)
+        return render_template("face_detection_music.html", title="Face Detection Music")
+    else:
+        return redirect(url_for('index'))
+
+def getKeyToken(uName):
+    listStr = ["abcdef","ghijkl","mnopqr","stuvwx","yzABCD","EFGHIJ","KLMNOP","QRSTUV","WXYZab"];
+    strEnc = random.choice(listStr)
+    randInt = random.randint(1,101)
+    randNum = str(randInt)
+    user = uName
+    strTok = strEnc + randNum + user
+    tokEnc = base64.b64encode(strTok.encode('utf-8',errors = 'strict'))
+
+    print(randInt)
+    print(strEnc)
+    print(strTok)
+    # print(tokEnc)
+    print ("Encoded String: " , tokEnc)
+
+    return tokEnc
+
+@app.route('/mouthOpen', methods=['POST'])
+def mouthOpen():
+    idSession = session.get('id_session')
+    print(idSession)
+    dbconn = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='',
+        db='ffe',
+        charset='utf8mb4',
+        cursorclass=pymysql.cursors.DictCursor
+    )
+    checkMouthOpen = False
+    try:
+        if request.method == 'POST':
+            data = json.loads(request.data)
+            ts = data.get('timestamp')
+            mo = data.get('mouthopen')
+            tsStr = str(ts)
+            moStr = str(mo)
+            print('ts = {}, mo = {}'.format(tsStr, moStr))
+            with dbconn.cursor() as cursor:
+                query = "INSERT INTO `tbl_mo` (`id_session`, `ts`, `mo`) VALUES (%s, %s, %s)"
+                # query = "INSERT INTO `tbl_mo` (`id_mo`, `id_session`, `ts`, `mo`) VALUES (NULL, '"+idSession+"', '"+tsStr+"', '"+moStr+"')"
+                cursor.execute(query, (str(idSession), tsStr, moStr))
+            dbconn.commit()
+            checkMouthOpen= True
+            return "OK"
+    except Exception as err:
+        print(err)
+    finally:
+        dbconn.close()
+        if checkMouthOpen == False:
+            return "False"
+
+@app.route('/countInterest', methods=['GET', 'POST'])
+def countInterest():
+    dbconn = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='',
+        db='ffe',
+        charset='utf8mb4',
+        cursorclass=pymysql.cursors.DictCursor
+    )
+    checkCountInterest = False
+    try:
+        with dbconn.cursor() as cursor:
+            idSession = session.get('id_session')
+            print(idSession)
+            query = "SELECT * FROM `tbl_mo` WHERE `id_session` = %s ORDER BY `ts` ASC"
+            cursor.execute(query, (idSession,))
+            data = cursor.fetchall()
+            print(data)
+            checkCountInterest = True
+            print(checkCountInterest)
+
+            if len(data) is 0:
+                result = {'success': False, 'url': None, 'message': 'Data Tabel mo Kosong'}
+                return jsonify(result)
+            else:
+                result = {'success': True, 'url': '/graphResult', 'message': 'Success', 'dataInterestValue': data}
+                # 'id_session': data["id_session"], 'time': data["ts"],
+                #                           'mo': data["mo"],
+                return jsonify(result)
+            # return render_template('graphResult.html', listTs = listTs, listMo = listMo)
+    except Exception as err:
+        print(err)
+        return "error"
+    finally:
+        dbconn.close()
+        if checkCountInterest == False:
+            return "false"
+
+@app.route('/graphResult')
+def graphResult():
+    return render_template('graphResult.html')
+
+# --------------------------------------------------------------------------------------------------
+# CREATE TOKEN
+# import random
+
+# listStr = ["abcdef","ghijkl","mnopqr","stuvwx","yzABCD","EFGHIJ","KLMNOP","QRSTUV","WXYZab"];
+# strEnc = random.choice(listStr)
+# randInt = random.randint(1,101)
+# randNum = str(randInt)
+# user = "user1"
+# strTok = strEnc + randNum + user
+# tokEnc = strTok.encode('base64','strict')
+
+# print(randInt)
+# print(strEnc)
+# print(strTok)
+# print(tokEnc)
+# --------------------------------------------------------------------------------------------------
+
 
 # class MusicForm(FlaskForm):
 #     # song = StringField('song')
