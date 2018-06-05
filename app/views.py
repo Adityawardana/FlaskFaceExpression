@@ -5,11 +5,11 @@ from wtforms import StringField, PasswordField, SelectField, SubmitField
 from wtforms.validators import DataRequired
 
 import json
-import pymysql
 import datetime
 import time
 import base64
 import random
+import pymysql
 
 from app import app
 
@@ -101,24 +101,28 @@ def signInUser():
                 return jsonify(result)
             else:
                 curentTime = getCurrentTime()
+                tokEncd = getKeyToken(user)
                 session['logged_in'] = True
                 session['username'] = user
                 session['id_user'] = idUser
                 session['login_date'] = curentTime
+                session['token'] = tokEncd
 
-                queryInsertSession = "INSERT INTO `tbl_session` (`id_user`, `usr_timestamp`) VALUES (%s, %s)"
-                cursor.execute(queryInsertSession, (str(idUser), str(curentTime)))
+                queryInsertSession = "INSERT INTO `tbl_session` (`id_user`, `usr_timestamp`, `token`) VALUES (%s, %s, %s)"
+                cursor.execute(queryInsertSession, (str(idUser), str(curentTime), str(tokEncd)))
                 dbconn.commit()
 
-                print(session.get('logged_in'))
-                print(session.get('username'))
-                print(session.get('id_user'))
-                print(session.get('login_date'))
+                print('tokEncd = {}'.format(session.get('token')))
+                print('logged_in = {}'.format(session.get('logged_in')))
+                print('username = {}'.format(session.get('username')))
+                print('id_user = {}'.format(session.get('id_user')))
+                print('login_date = {}'.format(session.get('login_date')))
 
                 id_user = session.get('id_user')
                 user_time = session.get('login_date')
-                queryGetSession = "SELECT * FROM `tbl_session` WHERE `id_user` = %s AND `usr_timestamp` = %s"
-                cursor.execute(queryGetSession, (str(id_user), str(user_time)))
+                tokEncode = session.get('token')
+                queryGetSession = "SELECT * FROM `tbl_session` WHERE `id_user` = %s AND `usr_timestamp` = %s AND `token` = %s "
+                cursor.execute(queryGetSession, (str(id_user), str(user_time), str(tokEncode)))
                 dataSession = cursor.fetchone()
 
                 if len(dataSession) is 0:
@@ -128,7 +132,7 @@ def signInUser():
                     id_session = dataSession['id_session']
                     session['id_session'] = id_session
                     print(session.get('id_session'))
-                    result = {'success': True, 'url': '/', 'id_user': idUser, 'login_date': curentTime, 'username': user, 'message': 'Login Success'}
+                    result = {'success': True, 'url': '/', 'id_user': idUser, 'login_date': curentTime, 'token': str(tokEncode),'username': user, 'message': 'Login Success'}
                     return jsonify(result)
     except Exception as err:
         print(err)
@@ -152,16 +156,70 @@ def signOut():
 @app.route('/face_detection_music')
 def face_detection():
     if session.get('logged_in'):
-        userName = session.get('username')
-        tokEncd = getKeyToken(userName)
-        session['token'] = tokEncd
-        print(tokEncd)
-        return render_template("face_detection_music.html", title="Face Detection Music")
+        dbconn = pymysql.connect(
+            host='localhost',
+            user='root',
+            password='',
+            db='ffe',
+            charset='utf8mb4',
+            cursorclass=pymysql.cursors.DictCursor
+        )
+        fd = False
+        try:
+            if session.get('token'):
+                session.pop('token', None)
+                session.pop('login_date', None)
+                session.pop('id_session', None)
+
+                userName = session.get('username')
+                idUser = session.get('id_user')
+                                
+                curentTime = getCurrentTime()
+                tokEncd = getKeyToken(userName)
+                                
+                session['token'] = tokEncd
+                session['login_date'] = curentTime                                        
+
+                with dbconn.cursor() as cursor:
+                    queryInsertSession = "INSERT INTO `tbl_session` (`id_user`, `usr_timestamp`, `token`) VALUES (%s, %s, %s)"
+                    cursor.execute(queryInsertSession, (str(idUser), str(curentTime), str(tokEncd)))
+                    dbconn.commit()
+                    fd = True
+
+                    print('tokEncd = {}'.format(session.get('token')))
+                    print('logged_in = {}'.format(session.get('logged_in')))
+                    print('username = {}'.format(session.get('username')))
+                    print('id_user = {}'.format(session.get('id_user')))
+                    print('login_date = {}'.format(session.get('login_date')))
+
+                    id_user = session.get('id_user')
+                    user_time = session.get('login_date')
+                    tokEncode = session.get('token')
+                    queryGetSession = "SELECT * FROM `tbl_session` WHERE `id_user` = %s AND `usr_timestamp` = %s AND `token` = %s "
+                    cursor.execute(queryGetSession, (str(id_user), str(user_time), str(tokEncode)))
+                    dataSession = cursor.fetchone()
+
+                    if len(dataSession) is 0:
+                        result = {'success': False, 'url': None, 'message': 'Data Session Kosong'}
+                        return jsonify(result)
+                    else:
+                        id_session = dataSession['id_session']
+                        session['id_session'] = id_session
+                        print(session.get('id_session'))
+                        print("Success")
+                        return render_template("face_detection_music.html", title="Face Detection Music")
+        except Exception as err:
+            print(err)
+            return "error"
+        finally:
+            dbconn.close()
+            if fd == False:
+                return "False"
     else:
         return redirect(url_for('index'))
 
 def getKeyToken(uName):
-    listStr = ["abcdef","ghijkl","mnopqr","stuvwx","yzABCD","EFGHIJ","KLMNOP","QRSTUV","WXYZab"];
+    listStr = ["abcdef","ghijkl","mnopqr","stuvwx","yzABCD","EFGHIJ","KLMNOP","QRSTUV","WXYZab"]
     strEnc = random.choice(listStr)
     randInt = random.randint(1,101)
     randNum = str(randInt)
