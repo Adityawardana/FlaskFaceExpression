@@ -309,9 +309,53 @@ def countInterest():
         if checkCountInterest == False:
             return "false"
 
+@app.route('/countAllInterest', methods=['POST'])
+def countAllInterest():
+    sessionId = int(request.form['sessionId'])
+    dbconn = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='',
+        db='ffe',
+        charset='utf8mb4',
+        cursorclass=pymysql.cursors.DictCursor
+    )
+    checkAllCountInterest = False
+    try:
+        with dbconn.cursor() as cursor:
+            print(sessionId)
+            type(sessionId)
+            query = "SELECT * FROM `tbl_mo` WHERE `id_session` = %s ORDER BY `ts` ASC"
+            cursor.execute(query, (sessionId,))
+            data = cursor.fetchall()
+            print(data)
+            checkAllCountInterest = True
+            print(checkAllCountInterest)
+
+            if len(data) is 0:
+                result = {'success': False, 'url': None, 'message': 'Data Tabel mo Kosong'}
+                return jsonify(result)
+            else:
+                result = {'success': True, 'url': '/allGraph', 'message': 'Success', 'dataInterestValue': data}
+                # 'id_session': data["id_session"], 'time': data["ts"],
+                #                           'mo': data["mo"],
+                return jsonify(result)
+            # return render_template('graphResult.html', listTs = listTs, listMo = listMo)
+    except Exception as err:
+        print(err)
+        return "error"
+    finally:
+        dbconn.close()
+        if checkAllCountInterest == False:
+            return "false"
+
 @app.route('/graphResult')
 def graphResult():
     return render_template('graphResult.html')
+
+@app.route('/allGraph')
+def allGraph():
+    return render_template('allGraph.html')
 
 # --------------------------------------------------------------------------------------------------
 # CREATE TOKEN

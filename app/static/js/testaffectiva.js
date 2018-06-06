@@ -38,6 +38,7 @@ $(document).ready(function () {
     var pl_tetapSemangat = document.getElementById("tetapSemangat-pl");
     var pl_uptownFunk = document.getElementById("uptownFunk-pl");
     var pl_weWillNotGoDown = document.getElementById("weWillNotGoDown-pl");
+    var pl_deenAssalam = document.getElementById("deenAssalam-pl");
 
     // Get the <span> element that closes the modal
     var close_modal = document.getElementsByClassName("close_modal")[0];
@@ -45,10 +46,10 @@ $(document).ready(function () {
     var dps = []; //dataPoints
     var chart = new CanvasJS.Chart("chartContainer", {
         title: {
-            text: "Grafik Ketertarikan User"
+            text: "Grafik Mouth Open"
         },
         axisY: {
-            title: "Nilai Ketertarikan",
+            title: "Nilai Mouth Open",
             includeZero: true
         },
         data: [{
@@ -412,6 +413,18 @@ $(document).ready(function () {
         var list_song = document.createTextNode("We Will Not Go Down");
 
         c_a.setAttribute("href", "/static/songs/we%20will%20not%20go%20down.mp3");
+        c_a.appendChild(list_song);
+    }
+    
+    pl_deenAssalam.onclick = function () {
+        pl_add.style.display = "none";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("Deen Assalam");
+
+        c_a.setAttribute("href", "/static/songs/deen%20assalam.mp3");
         c_a.appendChild(list_song);
     }
     // ----------------------------- end of add playlist ---------------------------------------

@@ -8,6 +8,9 @@
 
     <div class="ui container">
         <button id="graph-result-btn" class="ui large primary submit button white-text" type="button">See Graph</button>
+        <button id="see-all-graph-btn" class="ui large primary submit button white-text" type="button">
+            <a href="{{ url_for('allGraph') }}">All Graph</a>
+        </button>
     </div>
 
     <div id="graph-result-container">
@@ -18,11 +21,13 @@
         $(document).ready(function(){
             var dataGraphResult = [];
             var chart = new CanvasJS.Chart("graph-result-container", {
+                zoomEnabled: true,
+                animationEnabled: true,
                 title: {
-                    text: "Grafik Ketertarikan User"
+                    text: "Grafik Gerakan Mulut"
                 },
                 axisY: {
-                    title: "Nilai Ketertarikan",
+                    title: "Nilai Gerakan Mulut",
                     includeZero: true
                 },
                 data: [{
