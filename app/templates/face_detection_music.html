@@ -1,13 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="ui container">
+    <!-- <div class="ui container"> -->
         <h1 class="center">Emotion Recognition</h1>
 
-        <div id="chartContainer" style="height: 400px; width:100%;">
-
+        <div class="ui container">
+            <div class="ui grid" id="graph-song-container">
+            <div class="twelve wide column" id="chartContainer" style="height: 400px; width:75%;"></div>
+                
+                <div id="audioPlayer-container" class="four wide column">
+                    <div id="audio-control">
+                        <b>
+                             <audio class="" id="audioPlayer" controls>
+                                <source src="">
+                             </audio>
+                         </b>
+                     </div>
+                    <button id="add-playlist">Add Playlist</button>
+                    <div class="ui divider"></div>
+                    <div id="playlist-content"></div>
+                </div>    
+            </div>
+                
         </div>
 
-        <div class="ui fluid container">
+        <div id="detection-controller" class="ui container">
             <div class="row">
                 <div class="ui divider"></div>
                 <div id="menu-controller">
@@ -27,8 +43,8 @@
                     </div>
 
                     <div style="display: inline-grid;margin-left: 50px;">
-                        <strong>LOG MESSAGES</strong>
-                        <span id="logs"></span>
+                        <strong>LOG MESSAGES &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp;&nbsp;&nbsp;&nbsp;<span id="log-message"></span></strong>
+                        <!-- <span id="logs"></span> -->
                     </div>
                     <div style="height:25em;">
                         <div>
@@ -45,20 +61,9 @@
 
         <div class="ui hidden divider"></div>
 
-        <button id="add-playlist">Add Playlist</button>
-        <div id="playlist-content"></div>
-
-        <div class="ui divider">
-            <b>
-                <audio class="" id="audioPlayer" controls>
-                  <source src="">
-                </audio>
-            </b>
-        </div>
-
         <div id="download-txt"></div>
 
-    </div>
+    <!-- </div> -->
 
     <div id="modal-playlist" class="modal-p">
         <div class="modal-content">

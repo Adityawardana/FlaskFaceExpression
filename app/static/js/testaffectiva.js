@@ -17,6 +17,8 @@ $(document).ready(function () {
     // Get the button that opens the modal
     var pl_add = document.getElementById("add-playlist");
 
+    var audio_ctrl = document.getElementById("audio-control");
+
     // Add Song to playlist
     var pl_akhirnya = document.getElementById("akhirnya-pl");
     var pl_ayah = document.getElementById("ayah-pl");
@@ -45,6 +47,7 @@ $(document).ready(function () {
 
     var dps = []; //dataPoints
     var chart = new CanvasJS.Chart("chartContainer", {
+        backgroundColor: "#f7f7f7",
         title: {
             text: "Grafik Mouth Open"
         },
@@ -75,6 +78,7 @@ $(document).ready(function () {
     //Add a callback to notify when the detector is initialized and ready for runing.
     detector.addEventListener("onInitializeSuccess", function () {
         log('#logs', "The detector reports initialized");
+        document.getElementById("log-message").innerHTML = "The detector reports initialized";
         //Display canvas instead of video feed because we want to draw the feature points on it
         startAudioPlayer();
         $("#face_video_canvas").css("display", "block");
@@ -84,17 +88,20 @@ $(document).ready(function () {
     //Add a callback to notify when camera access is allowed
     detector.addEventListener("onWebcamConnectSuccess", function () {
         log('#logs', "Webcam access allowed");
+        document.getElementById("log-message").innerHTML = "Webcam access allowed";
     });
 
     //Add a callback to notify when camera access is denied
     detector.addEventListener("onWebcamConnectFailure", function () {
         log('#logs', "webcam denied");
+        document.getElementById("log-message").innerHTML = "Webcam access denied";
         console.log("Webcam access denied");
     });
 
     //Add a callback to notify when detector is stopped
     detector.addEventListener("onStopSuccess", function () {
         log('#logs', "The detector reports stopped");
+        document.getElementById("log-message").innerHTML = "The detector reports stopped";
         $("#results").html("");
     });
 
@@ -103,6 +110,7 @@ $(document).ready(function () {
     //Faces object contains probabilities for all the different expressions, emotions and appearance metrics
     detector.addEventListener("onImageResultsSuccess", function (faces, image, timestamp) {
         $('#results').html("");
+        document.getElementById("log-message").innerHTML = "The detector is recording";
         $("#modal").hide();
 
         if (faces.length > 0) {
@@ -178,6 +186,7 @@ $(document).ready(function () {
     // -------------------- Add Song to list of playlist -----------------------------------
     pl_akhirnya.onclick = function () {
         pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
@@ -190,6 +199,7 @@ $(document).ready(function () {
 
     pl_ayah.onclick = function () {
         pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
@@ -202,6 +212,7 @@ $(document).ready(function () {
 
     pl_bahagia.onclick = function () {
         pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
@@ -214,6 +225,7 @@ $(document).ready(function () {
 
     pl_benciUntukMencinta.onclick = function () {
         pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
@@ -226,6 +238,7 @@ $(document).ready(function () {
 
     pl_beritaKepadaKawan.onclick = function () {
         pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
@@ -238,6 +251,7 @@ $(document).ready(function () {
 
     pl_bukaSemangatBaru.onclick = function () {
         pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
@@ -250,6 +264,7 @@ $(document).ready(function () {
 
     pl_bukanDiaTapiAku.onclick = function () {
         pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
@@ -262,6 +277,7 @@ $(document).ready(function () {
 
     pl_bunda.onclick = function () {
         pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
@@ -274,6 +290,7 @@ $(document).ready(function () {
 
     pl_happy.onclick = function () {
         pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
@@ -286,6 +303,7 @@ $(document).ready(function () {
 
     pl_lebihIndah.onclick = function () {
         pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
@@ -298,6 +316,7 @@ $(document).ready(function () {
 
     pl_manusiaBodoh.onclick = function () {
         pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
@@ -310,6 +329,7 @@ $(document).ready(function () {
 
     pl_pastiBisa.onclick = function () {
         pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
@@ -322,6 +342,7 @@ $(document).ready(function () {
 
     pl_santaiSaja.onclick = function () {
         pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
@@ -334,6 +355,7 @@ $(document).ready(function () {
 
     pl_selamatPagi.onclick = function () {
         pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
@@ -346,6 +368,7 @@ $(document).ready(function () {
 
     pl_semuaTentangKita.onclick = function () {
         pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
@@ -358,6 +381,7 @@ $(document).ready(function () {
 
     pl_sepertiYangKauMinta.onclick = function () {
         pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
@@ -370,6 +394,7 @@ $(document).ready(function () {
 
     pl_sugar.onclick = function () {
         pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
@@ -382,6 +407,7 @@ $(document).ready(function () {
 
     pl_tetapSemangat.onclick = function () {
         pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
@@ -394,6 +420,7 @@ $(document).ready(function () {
 
     pl_uptownFunk.onclick = function () {
         pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
@@ -406,6 +433,7 @@ $(document).ready(function () {
 
     pl_weWillNotGoDown.onclick = function () {
         pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
@@ -418,6 +446,7 @@ $(document).ready(function () {
     
     pl_deenAssalam.onclick = function () {
         pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
@@ -442,6 +471,7 @@ function onStart() {
         detector.start();
     }
     log('#logs', "Clicked the start button");
+    document.getElementById("log-message").innerHTML = "Button Start is clicked";
 }
 
 //function executes when the Stop button is pushed.
@@ -449,6 +479,7 @@ function onStop() {
     var graph_result_modal = document.getElementById('modal-result');
 
     log('#logs', "Clicked the stop button");
+    document.getElementById("log-message").innerHTML = "Clicked the stop button";
     if (detector && detector.isRunning) {
         detector.removeEventListener();
         detector.stop();
@@ -462,6 +493,7 @@ function onStop() {
 //function executes when the Reset button is pushed.
 function onReset() {
     log('#logs', "Clicked the reset button");
+    document.getElementById("log-message").innerHTML = "Clicked reset button";
     location.reload()
     if (detector && detector.isRunning) {
         detector.reset();

@@ -24,7 +24,7 @@
 	height: 100%;
 	width: 100%;
 	background: rgba( 255, 255, 255, 0.9 )
-				url('/static/image/loader.svg')
+				url('/static/image/loader2.svg')
 				50% 50%
 				no-repeat;
 }
@@ -138,4 +138,24 @@ body > .grid {
 #graph-result-container {
     height: 400px;
     width:100%;
+}
+
+#graph-song-container {
+    width: 100%;
+    padding-left: 25px;
+    padding-right: 40px;
+}
+
+#audio-control {
+    display: none;
+}
+
+#detection-controller {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding-left: 25px;
+}
+
+#audioPlayer-container {
+    padding-left: 39px;
 }

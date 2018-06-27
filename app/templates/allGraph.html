@@ -7,15 +7,20 @@
     </div>
 
     <div class="ui container">
-        <form class="ui large form" role="form">
-            <input type="number" id="sessionId" name="sessionId" placeholder="Id Session">
+        <form class="ui large form" role="form" method="POST">
+            <select name="sessionId" class="ui fluid dropdown">
+                <option value="" disabled selected>Id Session</option>
+                {% for data in dataSession %}
+                    <option value="{{data.id_session}}">{{data.id_session}}</option>
+                {% endfor %}
+            </select>
             <button id="showGraph" class="ui fluid large teal submit button" type="button">Submit</button>    
+            <!-- <input type="number" id="sessionId" name="sessionId" placeholder="Id Session"> -->
         </form>
     </div>
 
-    <div id="all-graph-container">
-
-    </div>
+    <div id="all-graph-container"></div>
+    <h1 class="center" id="empty-graph-container"></h1>
 
     <script>
         $(document).ready(function(){
@@ -42,13 +47,15 @@
             });
 
             $('#showGraph').click(function() {
-                var sessionId = $('#sessionId').val();
+                // var sessionId = $('#sessionId').val();
                 $.ajax({
                     url: '/countAllInterest',
                     data: $('form').serialize(),
                     type: 'POST',
                     async: false,
                     success: function(response) {
+                        var graphCont = document.getElementById("all-graph-container");
+                        var graphEmpCont = document.getElementById("empty-graph-container");
                         console.log(response.success);
                         console.log("Data Terkirim");
                         if(response.success == true){
@@ -56,6 +63,7 @@
                             var i;
                             var one = 1;
 
+                            graphCont.style.display = "block";
                             console.log("Berhasil");
                             // console.log(i);
                             // console.log(typeof i);
@@ -90,7 +98,9 @@
                             console.log(dataAllGraph);
                             chart.render();
                         }else{
-                            console.log("Tidak Berhasil");
+                            graphCont.style.display = "none";
+                            graphEmpCont.innerHTML = "Data Not Found";
+                            console.log("Data Kosong");
                         }
                     },
                     error: function(error) {
