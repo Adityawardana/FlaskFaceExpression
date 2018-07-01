@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="ui text container">
+    <div class="ui text fdm-title container">
         <h1 class="ui header">
             Grafik Hasil Percobaan
         </h1>
     </div>
 
-    <div class="ui container">
+    <div class="ui container pad-tl-25">
         <button id="graph-result-btn" class="ui large primary submit button white-text" type="button">See Graph</button>
         <button id="see-all-graph-btn" class="ui large primary submit button white-text" type="button">
             <a href="{{ url_for('allGraph') }}">All Graph</a>
         </button>
     </div>
 
-    <div id="graph-result-container">
+    <div id="graph-result-container" class="pad-tl-25">
 
     </div>
 

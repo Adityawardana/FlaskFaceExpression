@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
     <!-- <div class="ui container"> -->
-        <h1 class="center">Emotion Recognition</h1>
+        <h1 class="fdm-title center">Emotion Recognition</h1>
 
         <div class="ui container">
             <div class="ui grid" id="graph-song-container">
@@ -32,13 +32,13 @@
                             <i class="play icon"></i>
                             Play
                         </button>
-                        <button class="ui labelled icon button" id="stop" onclick="onStop()">
-                            <i class="stop icon"></i>
-                            Stop
-                        </button>
                         <button class="ui labeled icon button" id="reset" onclick="onReset()">
                             Reset
                             <i class="undo alternate icon"></i>
+                        </button>
+                        <button class="ui labeled icon button" id="stop" onclick="onStop()">
+                            <i class="stop icon"></i>
+                            Stop
                         </button>
                     </div>
 
@@ -67,28 +67,48 @@
 
     <div id="modal-playlist" class="modal-p">
         <div class="modal-content">
-            <span class="close_modal">&times;</span>
-            <button id="akhirnya-pl">Akhirnya - add to Playlist</button>
-            <button id="ayah-pl">Ayah - add to Playlist</button>
-            <button id="bahagia-pl">Bahagia - add to Playlist</button>
-            <button id="benciUntukMencinta-pl">Benci Untuk Mencinta - add to Playlist</button>
-            <button id="beritaKepadaKawan-pl">Berita Kepada Kawan - add to Playlist</button>
-            <button id="bukaSemangatBaru-pl">Buka Semangat Baru - add to Playlist</button>
-            <button id="bukanDiaTapiAku-pl">Bukan Dia Tapi Aku - add to Playlist</button>
-            <button id="bunda-pl">Bunda - add to Playlist</button>
-            <button id="happy-pl">Happy - add to Playlist</button>
-            <button id="lebihIndah-pl">Lebih Indah - add to Playlist</button>
-            <button id="manusiaBodoh-pl">Manusia Bodoh - add to Playlist</button>
-            <button id="pastiBisa-pl">Pasti Bisa - add to Playlist</button>
-            <button id="santaiSaja-pl">Santai Saja - add to Playlist</button>
-            <button id="selamatPagi-pl">Selamat Pagi - add to Playlist</button>
-            <button id="semuaTentangKita-pl">Semua Tentang Kita - add to Playlist</button>
-            <button id="sepertiYangKauMinta-pl">Seperti Yang Kau Minta - add to Playlist</button>
-            <button id="sugar-pl">Sugar - add to Playlist</button>
-            <button id="tetapSemangat-pl">Tetap Semangat - add to Playlist</button>
-            <button id="uptownFunk-pl">Uptown Funk - add to Playlist</button>
-            <button id="weWillNotGoDown-pl">We Will Not Go Down - add to Playlist</button>
-            <button id="deenAssalam-pl">Deen Assalam - add to Playlist</button>
+            <span class="close_modal close icon">&times;</span>
+            <br><strong>List Lagu</strong>
+            <div class="ui divider"></div>
+            <strong>Pop</strong><br>
+            <button class="ui button" id="akhirnya-pl">Akhirnya</button>
+            <button class="ui button" id="ayah-pl">Ayah</button>
+            <button class="ui button" id="bahagia-pl">Bahagia</button>
+            <button class="ui button" id="benciUntukMencinta-pl">Benci Untuk Mencinta</button>
+            <button class="ui button" id="beritaKepadaKawan-pl">Berita Kepada Kawan</button>
+            <button class="ui button" id="bukaSemangatBaru-pl">Buka Semangat Baru</button>
+            <button class="ui button" id="bukanDiaTapiAku-pl">Bukan Dia Tapi Aku</button>
+            <button class="ui button" id="bunda-pl">Bunda</button>
+            <button class="ui button" id="happy-pl">Happy</button>
+            <button class="ui button" id="lebihIndah-pl">Lebih Indah</button>
+            <button class="ui button" id="manusiaBodoh-pl">Manusia Bodoh</button>
+            <button class="ui button" id="pastiBisa-pl">Pasti Bisa</button>
+            <button class="ui button" id="selamatPagi-pl">Selamat Pagi</button>
+            <button class="ui button" id="semuaTentangKita-pl">Semua Tentang Kita</button>
+            <button class="ui button" id="sepertiYangKauMinta-pl">Seperti Yang Kau Minta</button>
+            <button class="ui button" id="sugar-pl">Sugar</button>
+            <button class="ui button" id="tetapSemangat-pl">Tetap Semangat</button>
+            <button class="ui button" id="uptownFunk-pl">Uptown Funk</button>
+            <button class="ui button" id="moreThanWords-pl">More Than Words</button>
+            <button class="ui button" id="weWillNotGoDown-pl">We Will Not Go Down</button>
+            <div class="ui divider"></div>
+            <strong>Rock</strong><br>
+            <button class="ui button" id="heaven-pl">Heaven</button>
+            <button class="ui button" id="itsMyLife-pl">Its My Life</button>
+            <div class="ui divider"></div>
+            <strong>Jazz</strong><br>
+            <button class="ui button" id="carelessWhisper-pl">Careless Whisper</button>
+            <button class="ui button" id="feelingGood-pl">Feeling Good</button>
+            <div class="ui divider"></div>
+            <strong>Dangdut</strong><br>
+            <button class="ui button" id="lagiSyantik-pl">Lagi Syantik</button>
+            <button class="ui button" id="nasiPadang-pl">Goyang Nasi Padang</button>
+            <div class="ui divider"></div>
+            <strong>Reggae</strong><br>
+            <button class="ui button" id="santaiSaja-pl">Santai Saja</button>
+            <div class="ui divider"></div>
+            <strong>Religi</strong><br>
+            <button class="ui button" id="deenAssalam-pl">Deen Assalam</button>
         </div>
     </div>
 

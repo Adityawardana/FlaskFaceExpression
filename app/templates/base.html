@@ -36,13 +36,23 @@
                 </div>
                 {% if session['logged_in'] %}
                     <!--<p>You're already logged in!</p>-->
-                    <div class="right item">
+                    <div class="left item nav-top">
+                        <a class="item" href="{{ url_for('face_detection') }}">
+                          Expression Detection
+                        </a>
+                    </div>
+                    <div class="left item nav-top">
+                        <a class="item" href="{{ url_for('allGraph') }}">
+                          Graph
+                        </a>
+                    </div>
+                    <div class="right item nav-top">
                         <a class="item" href="{{ url_for('signOut') }}">
                           Logout
                         </a>
                     </div>
                 {% else %}
-                    <div class="right item">
+                    <div class="right item nav-top">
                         <a class="item" href="{{ url_for('signIn') }}">
                           Sign In
                         </a>
