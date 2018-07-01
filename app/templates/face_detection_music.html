@@ -15,7 +15,7 @@
                              </audio>
                          </b>
                      </div>
-                    <button id="add-playlist">Add Playlist</button>
+                    <button class="ui positive button" id="add-playlist">Add Playlist</button>
                     <div class="ui divider"></div>
                     <div id="playlist-content"></div>
                 </div>    
@@ -46,6 +46,25 @@
                         <strong>LOG MESSAGES &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp;&nbsp;&nbsp;&nbsp;<span id="log-message"></span></strong>
                         <!-- <span id="logs"></span> -->
                     </div>
+
+                    <div id="kategoriList">
+                        <form id="kategoriLagu"> 
+                            <strong>Kategori Lagu : </strong>
+                            <div id="setKategori">
+                                <input type="radio" id="stl" name="kategori" value="Suka Tau Lirik">
+                                <label for="kategoriChoice1">Suka Tau Lirik</label>
+                                
+                                <input type="radio" id="sttl" name="kategori" value="Suka Tidak Tau Lirik">
+                                <label for="kategoriChoice2">Suka Tidak Tau Lirik</label>
+
+                                <input type="radio" id="bd" name="kategori" value="Baru Dengar">
+                                <label for="kategoriChoice3">Baru Dengar</label>
+                                <button type="submit">Set</button>
+                            </div>
+                          </form>
+                          <p> Kategori : <strong id="logKategoriSong"></strong></p>
+                    </div>
+
                     <div style="height:25em;">
                         <div>
                             <h2 id="emotion_result" style="color: red;"></h2>
@@ -114,14 +133,16 @@
 
     <div id="modal-result" class="modal-p">
         <div class="modal-content">
-            <div class="ui large positive button white-text">
+            <span class="close_modal_result close icon">x</span>
+
+            <div class="ui large toggle button">
                 <a href="{{ url_for('graphResult') }}">
                     See Result
+                    <i class="chevron right icon"></i>
                 </a>
             </div>
         </div>
     </div>
-
 <!--<script src="{{ url_for('static', filename='js/testaffectiva.js') }}" type="text/javascript"> </script>-->
 
 {% endblock %}

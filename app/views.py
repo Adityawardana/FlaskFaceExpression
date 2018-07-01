@@ -253,9 +253,14 @@ def mouthOpen():
             data = json.loads(request.data)
             ts = data.get('timestamp')
             mo = data.get('mouthopen')
+            sp = data.get('songplaylist')
+            ks = data.get('kategorisong')
+
+            spStr = str(sp)
+            ksStr = str(ks)
             tsStr = str(ts)
             moStr = str(mo)
-            print('ts = {}, mo = {}'.format(tsStr, moStr))
+            print('ts = {}, mo = {}, sp = {}, ks = {}'.format(tsStr, moStr, spStr, ksStr))
             with dbconn.cursor() as cursor:
                 query = "INSERT INTO `tbl_mo` (`id_session`, `ts`, `mo`) VALUES (%s, %s, %s)"
                 # query = "INSERT INTO `tbl_mo` (`id_mo`, `id_session`, `ts`, `mo`) VALUES (NULL, '"+idSession+"', '"+tsStr+"', '"+moStr+"')"

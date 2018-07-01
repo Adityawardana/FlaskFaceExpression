@@ -111,6 +111,19 @@
     margin-bottom: 10px;
 }
 
+#setKategori {
+    margin-top: 10px;
+}
+
+#setKategori > label {
+    margin-right: 10px;
+}
+
+#kategoriList {
+    display: inline-grid;
+    margin-left: 5%;
+}
+
 /* The Close Button */
 .close {
     color: #aaaaaa;
