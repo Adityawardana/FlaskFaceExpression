@@ -19,7 +19,18 @@
         </form>
     </div>
 
-    <div id="all-graph-container"></div>
+    <div id="descriptionResultAG1" class="ui container pad-tl-25" >
+        <strong>Id Session &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong> 
+            <span id="idSessionDescriptionAG1"></span><br>
+        <strong>Username &nbsp;&nbsp;&nbsp;&nbsp; : </strong> 
+            <span id="userNameDescriptionAG1"></span><br>
+        <strong>Song &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong> 
+            <span id="songDescriptionAG1"></span><br>   
+        <strong>Kategori &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong> 
+            <span id="kategoriDescriptionAG1"></span><br> 
+    </div>
+
+    <div id="all-graph-container" class="pad-tl-25" style="height: 400px; width:95%;"></div>
     <h1 class="center" id="empty-graph-container"></h1>
 
     <script>
@@ -60,10 +71,18 @@
                         console.log("Data Terkirim");
                         if(response.success == true){
                             var dataLength = response.dataInterestValue.length;
+                            var uName = response.username;
+                            var idSession = response.idSession;
+                            var songList = response.dataInterestValue[0].song_list;
+                            var songKategori = response.dataInterestValue[0].song_kategori;
                             var i;
                             var one = 1;
 
                             graphCont.style.display = "block";
+                            $('#idSessionDescriptionAG1').html(idSession);
+                            $('#userNameDescriptionAG1').html(uName);
+                            $('#songDescriptionAG1').html(songList);
+                            $('#kategoriDescriptionAG1').html(songKategori);
                             console.log("Berhasil");
                             // console.log(i);
                             // console.log(typeof i);

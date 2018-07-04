@@ -3,6 +3,7 @@ from decimal import Decimal
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SelectField, SubmitField
 from wtforms.validators import DataRequired
+from urllib.parse import quote
 
 import json
 import datetime
@@ -13,13 +14,21 @@ import pymysql
 
 from app import app
 
-@app.route('/')
-@app.route('/index')
-def index():
-    if not session.get('logged_in'):
-        return render_template("index.html", title="Home")
+@app.route('/<imageUrl>', methods=['GET','POST'])
+def index(imageUrl):
+    imageUrl = quote(imageUrl, safe="")
+    if imageUrl != "%F0%9F%8E%B5":     
+        return redirect("%F0%9F%8E%B5", code=302)   
     else:
-        return render_template("index_home.html", title="Index Home")
+        if not session.get('logged_in'):
+            return render_template("index.html", title="Home")
+        else:
+            return render_template("index_home.html", title="Index Home")
+
+@app.route('/')
+def redirectHome():
+    return redirect("%F0%9F%8E%B5", code=302)
+    
 
 @app.route('/signUp')
 def signUp():
@@ -67,7 +76,8 @@ def signUpUser():
 @app.route('/signIn')
 def signIn():
     if session.get('logged_in'):
-        return redirect(url_for('index'))
+        # return redirect(url_for('index'))
+        return redirect("%F0%9F%8E%B5", code=302)
     else:
         return render_template('signIn.html', page="signIn")
 
@@ -151,7 +161,8 @@ def getCurrentTime():
 @app.route('/signOut')
 def signOut():
     session['logged_in'] = False
-    return redirect(url_for('index'))
+    # return redirect(url_for('index'))
+    return redirect("%F0%9F%8E%B5", code=302)
     
 @app.route('/face_detection_music')
 def face_detection():
@@ -216,7 +227,8 @@ def face_detection():
             if fd == False:
                 return "False"
     else:
-        return redirect(url_for('index'))
+        # return redirect(url_for('index'))
+        return redirect("%F0%9F%8E%B5", code=302)
 
 def getKeyToken(uName):
     listStr = ["abcdef","ghijkl","mnopqr","stuvwx","yzABCD","EFGHIJ","KLMNOP","QRSTUV","WXYZab"]
@@ -262,9 +274,9 @@ def mouthOpen():
             moStr = str(mo)
             print('ts = {}, mo = {}, sp = {}, ks = {}'.format(tsStr, moStr, spStr, ksStr))
             with dbconn.cursor() as cursor:
-                query = "INSERT INTO `tbl_mo` (`id_session`, `ts`, `mo`) VALUES (%s, %s, %s)"
+                query = "INSERT INTO `tbl_mo` (`id_session`, `ts`, `mo`, `song_list`, `song_kategori`) VALUES (%s, %s, %s, %s, %s)"
                 # query = "INSERT INTO `tbl_mo` (`id_mo`, `id_session`, `ts`, `mo`) VALUES (NULL, '"+idSession+"', '"+tsStr+"', '"+moStr+"')"
-                cursor.execute(query, (str(idSession), tsStr, moStr))
+                cursor.execute(query, (str(idSession), tsStr, moStr, spStr, ksStr))
             dbconn.commit()
             checkMouthOpen= True
             return "OK"
@@ -289,6 +301,8 @@ def countInterest():
     try:
         with dbconn.cursor() as cursor:
             idSession = session.get('id_session')
+            userName = session.get('username')
+            print(userName)
             print(idSession)
             query = "SELECT * FROM `tbl_mo` WHERE `id_session` = %s ORDER BY `ts` ASC"
             cursor.execute(query, (idSession,))
@@ -301,7 +315,7 @@ def countInterest():
                 result = {'success': False, 'url': None, 'message': 'Data Tabel mo Kosong'}
                 return jsonify(result)
             else:
-                result = {'success': True, 'url': '/graphResult', 'message': 'Success', 'dataInterestValue': data}
+                result = {'success': True, 'url': '/graphResult', 'message': 'Success', 'dataInterestValue': data, 'username':userName, 'idSession':idSession}
                 # 'id_session': data["id_session"], 'time': data["ts"],
                 #                           'mo': data["mo"],
                 return jsonify(result)
@@ -328,6 +342,8 @@ def countAllInterest():
     checkAllCountInterest = False
     try:
         with dbconn.cursor() as cursor:
+            userName = session.get('username')
+            print(userName)
             print(sessionId)
             type(sessionId)
             query = "SELECT * FROM `tbl_mo` WHERE `id_session` = %s ORDER BY `ts` ASC"
@@ -341,7 +357,7 @@ def countAllInterest():
                 result = {'success': False, 'url': None, 'message': 'Data Tabel mo Kosong'}
                 return jsonify(result)
             else:
-                result = {'success': True, 'url': '/allGraph', 'message': 'Success', 'dataInterestValue': data}
+                result = {'success': True, 'url': '/allGraph', 'message': 'Success', 'dataInterestValue': data, 'username':userName, 'idSession':sessionId}
                 # 'id_session': data["id_session"], 'time': data["ts"],
                 #                           'mo': data["mo"],
                 return jsonify(result)
