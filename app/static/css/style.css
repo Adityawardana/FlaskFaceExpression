@@ -217,6 +217,10 @@ body > .grid {
     margin-bottom: 5px;
 }
 
+#sub-btn-inl {
+    margin-left: 20px;
+    margin-top: 10px;
+}
 /* #all-graph-container {
     padding-top: 25px;
     padding-left: 25px;

@@ -1,133 +1,352 @@
-{% extends "base.html" %}
-{% block content %}
-    <div class="ui fdm-title text container">
-        <h1 class="ui header">
-            Grafik Hasil Percobaan
-        </h1>
-    </div>
+{% extends "base.html" %} {% block content %}
+<div class="ui fdm-title text container">
+    <h1 class="ui header">
+        Grafik Hasil Percobaan
+    </h1>
+</div>
 
-    <div class="ui container pad-tl-25">
-        <form class="ui large form" role="form" method="POST">
-            <select name="sessionId" class="ui fluid dropdown">
+<div class="ui form container pad-tl-25">
+    <form class="ui form" role="form" method="POST" name="form1" id="form1">
+        <label>
+            <strong>Session</strong>
+        </label>
+        <div id="sub-btn-inl" class="inline field">
+            <select name="sessionId" class="ui selection dropdown">
                 <option value="" disabled selected>Id Session</option>
                 {% for data in dataSession %}
-                    <option value="{{data.id_session}}">{{data.id_session}}</option>
+                <option value="{{data.id_session}}">{{data.id_session}}</option>
                 {% endfor %}
             </select>
-            <button id="showGraph" class="ui fluid large teal submit button" type="button">Submit</button>    
-            <!-- <input type="number" id="sessionId" name="sessionId" placeholder="Id Session"> -->
-        </form>
-    </div>
+            <button id="showGraph" class="ui teal submit button" type="button">Submit</button>
+        </div>
+    </form>
+</div>
 
-    <div id="descriptionResultAG1" class="ui container pad-tl-25" >
-        <strong>Id Session &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong> 
-            <span id="idSessionDescriptionAG1"></span><br>
-        <strong>Username &nbsp;&nbsp;&nbsp;&nbsp; : </strong> 
-            <span id="userNameDescriptionAG1"></span><br>
-        <strong>Song &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong> 
-            <span id="songDescriptionAG1"></span><br>   
-        <strong>Kategori &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong> 
-            <span id="kategoriDescriptionAG1"></span><br> 
-    </div>
+<div id="descriptionResultAG1" class="ui container pad-tl-25">
+    <strong>Id Session &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
+    <span id="idSessionDescriptionAG1"></span>
+    <br>
+    <strong>Username &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
+    <span id="userNameDescriptionAG1"></span>
+    <br>
+    <strong>Song &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
+    <span id="songDescriptionAG1"></span>
+    <br>
+    <strong>Kategori &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
+    <span id="kategoriDescriptionAG1"></span>
+    <br>
+    <strong>Rata-rata &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
+    <span id="rata2DescriptionAG1"></span>
+    <br>
+    <strong>Standar Deviasi &nbsp;&nbsp; : </strong>
+    <span id="sdDescriptionAG1"></span>
+    <br>
+</div>
 
-    <div id="all-graph-container" class="pad-tl-25" style="height: 400px; width:95%;"></div>
-    <h1 class="center" id="empty-graph-container"></h1>
+<div id="all-graph-container" class="pad-tl-25" style="height: 400px; width:95%;"></div>
+<h1 class="center" id="empty-graph-container"></h1>
 
-    <script>
-        $(document).ready(function(){
-            var dataAllGraph = [];
-            var chart = new CanvasJS.Chart("all-graph-container", {
-                zoomEnabled: true,
-                animationEnabled: true,
-                title: {
-                    text: "Grafik Gerakan Mulut"
-                },
-                axisY: {
-                    title: "Nilai Gerakan Mulut",
-                    includeZero: true
-                },
-                axisX: {
-                    title: "Time",
-                    includeZero: true
-                },
-                data: [{
-                    type: "splineArea",
-                    color: "rgba(54,158,173,.7)",
-                    dataPoints: dataAllGraph
-                }]
-            });
+<div class="ui divider"></div>
 
-            $('#showGraph').click(function() {
-                // var sessionId = $('#sessionId').val();
-                $.ajax({
-                    url: '/countAllInterest',
-                    data: $('form').serialize(),
-                    type: 'POST',
-                    async: false,
-                    success: function(response) {
-                        var graphCont = document.getElementById("all-graph-container");
-                        var graphEmpCont = document.getElementById("empty-graph-container");
-                        console.log(response.success);
-                        console.log("Data Terkirim");
-                        if(response.success == true){
-                            var dataLength = response.dataInterestValue.length;
-                            var uName = response.username;
-                            var idSession = response.idSession;
-                            var songList = response.dataInterestValue[0].song_list;
-                            var songKategori = response.dataInterestValue[0].song_kategori;
-                            var i;
-                            var one = 1;
+<!-- divider grafik satu dengan grafik dua -->
 
-                            graphCont.style.display = "block";
-                            $('#idSessionDescriptionAG1').html(idSession);
-                            $('#userNameDescriptionAG1').html(uName);
-                            $('#songDescriptionAG1').html(songList);
-                            $('#kategoriDescriptionAG1').html(songKategori);
-                            console.log("Berhasil");
+<div class="ui form container pad-tl-25">
+    <form class="ui form" role="form" method="POST" name="form2" id="form2">
+        <label>
+            <strong>Session</strong>
+        </label>
+        <div id="sub-btn-inl" class="inline field">
+            <select name="sessionId" class="ui selection dropdown">
+                <option value="" disabled selected>Id Session</option>
+                {% for data2 in dataSession %}
+                <option value="{{data2.id_session}}">{{data2.id_session}}</option>
+                {% endfor %}
+            </select>
+            <button id="showGraph2" class="ui teal submit button" type="button">Submit</button>
+        </div>
+        <!-- <input type="number" id="sessionId" name="sessionId" placeholder="Id Session"> -->
+    </form>
+</div>
+
+<div id="descriptionResultAG2" class="ui container pad-tl-25">
+    <strong>Id Session &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
+    <span id="idSessionDescriptionAG2"></span>
+    <br>
+    <strong>Username &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
+    <span id="userNameDescriptionAG2"></span>
+    <br>
+    <strong>Song &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
+    <span id="songDescriptionAG2"></span>
+    <br>
+    <strong>Kategori &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
+    <span id="kategoriDescriptionAG2"></span>
+    <br>
+    <strong>Rata-rata &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
+    <span id="rata2DescriptionAG2"></span>
+    <br>
+    <strong>Standar Deviasi &nbsp;&nbsp; : </strong>
+    <span id="sdDescriptionAG2"></span>
+    <br>
+</div>
+
+<div id="all-graph-container2" class="pad-tl-25" style="height: 400px; width:95%;"></div>
+<h1 class="center" id="empty-graph-container2"></h1>
+
+<div class="ui divider"></div>
+
+<!-- divider grafik dua dengan grafik tiga -->
+
+
+<script>
+    $(document).ready(function () {
+        var dataAllGraph = [];
+        var dataAllGraph2 = [];
+        
+        var chart = new CanvasJS.Chart("all-graph-container", {
+            zoomEnabled: true,
+            animationEnabled: true,
+            title: {
+                text: "Grafik Gerakan Mulut"
+            },
+            axisY: {
+                title: "Nilai Gerakan Mulut",
+                includeZero: true
+            },
+            axisX: {
+                title: "Time",
+                includeZero: true
+            },
+            data: [{
+                type: "splineArea",
+                color: "rgba(54,158,173,.7)",
+                dataPoints: dataAllGraph
+            }]
+        });
+
+        var chart2 = new CanvasJS.Chart("all-graph-container2", {
+            zoomEnabled: true,
+            animationEnabled: true,
+            title: {
+                text: "Grafik Gerakan Mulut"
+            },
+            axisY: {
+                title: "Nilai Gerakan Mulut",
+                includeZero: true
+            },
+            axisX: {
+                title: "Time",
+                includeZero: true
+            },
+            data: [{
+                type: "splineArea",
+                color: "rgba(54,158,173,.7)",
+                dataPoints: dataAllGraph2
+            }]
+        });
+
+        $('#showGraph').click(function () {
+            // var sessionId = $('#sessionId').val();
+            $.ajax({
+                url: '/countAllInterest',
+                data: $('#form1').serialize(),
+                type: 'POST',
+                async: true,
+                success: function (response) {
+                    var graphCont = document.getElementById("all-graph-container");
+                    var graphEmpCont = document.getElementById("empty-graph-container");
+                    console.log(response.success);
+                    console.log("Data Terkirim");
+                    if (response.success == true) {
+                        var dataLength = response.dataInterestValue.length;
+                        var uName = response.username;
+                        var idSession = response.idSession;
+                        var songList = response.dataInterestValue[0].song_list;
+                        var songKategori = response.dataInterestValue[0].song_kategori;
+                        var i;
+                        var one = 1;
+                        var avgMO = [];
+                        var rataMO = 0;
+                        var stdMO = 0;
+
+                        graphCont.style.display = "block";
+                        console.log("Berhasil");
+                        // console.log(i);
+                        // console.log(typeof i);
+                        // console.log(dataLength);
+                        // console.log(typeof dataLength);
+
+                        for (i = 0; i < dataLength; i++) {
+                            var firstTS = response.dataInterestValue[0].ts;
+                            var recentTS = response.dataInterestValue[i].ts;
+
+                            var floatFirstTS = parseFloat(firstTS);
+                            var floatRecentTS = parseFloat(recentTS);
+                            var tempResultTS = floatRecentTS - floatFirstTS;
+                            var resultTS = tempResultTS.toFixed(2);
                             // console.log(i);
-                            // console.log(typeof i);
-                            console.log(dataLength);
-                            // console.log(typeof dataLength);
 
-                            for (i = 0; i < dataLength; i++){
-                                var firstTS = response.dataInterestValue[0].ts;
-                                var recentTS = response.dataInterestValue[i].ts;
-
-                                var floatFirstTS = parseFloat(firstTS);
-                                var floatRecentTS = parseFloat(recentTS);
-                                var tempResultTS = floatRecentTS - floatFirstTS;
-                                var resultTS = tempResultTS.toFixed(2);
-                                console.log(i);
-
-                                if(i == 0){
-                                    var recentMO = response.dataInterestValue[i].mo - response.dataInterestValue[i].mo;
-                                    var resultMO = parseFloat(recentMO);
-                                }
-                                else {
-                                    var lastMO = response.dataInterestValue[i-one].mo;
-                                    var recentMO = response.dataInterestValue[i].mo;
-                                    var resultMO = parseFloat(recentMO) - parseFloat(lastMO);
-                                }
-
-                                dataAllGraph.push({
-                                    x: Math.abs(resultTS),
-                                    y: Math.abs(resultMO)
-                                });
+                            if (i == 0) {
+                                var recentMO = response.dataInterestValue[i].mo - response.dataInterestValue[
+                                    i].mo;
+                                var resultMO = parseFloat(recentMO);
+                                avgMO.push(Math.abs(resultMO));
+                            } else {
+                                var lastMO = response.dataInterestValue[i - one].mo;
+                                var recentMO = response.dataInterestValue[i].mo;
+                                var resultMO = parseFloat(recentMO) - parseFloat(lastMO);
+                                avgMO.push(Math.abs(resultMO));
                             }
-                            console.log(dataAllGraph);
-                            chart.render();
-                        }else{
-                            graphCont.style.display = "none";
-                            graphEmpCont.innerHTML = "Data Not Found";
-                            console.log("Data Kosong");
+
+                            dataAllGraph.push({
+                                x: Math.abs(resultTS),
+                                y: Math.abs(resultMO)
+                            });
                         }
-                    },
-                    error: function(error) {
-                        console.log(error);
-                        console.log("Data tidak terkirim");
+                        
+                        rataMO = average(avgMO);
+                        stdMO = stdev(avgMO);
+
+                        $('#idSessionDescriptionAG1').html(idSession);
+                        $('#userNameDescriptionAG1').html(uName);
+                        $('#songDescriptionAG1').html(songList);
+                        $('#kategoriDescriptionAG1').html(songKategori);
+                        $('#kategoriDescriptionAG1').html(songKategori);
+                        $('#rata2DescriptionAG1').html(rataMO);
+                        $('#sdDescriptionAG1').html(stdMO);
+
+                        // console.log(dataAllGraph);
+                        // console.log(avgMO);
+                        // console.log(rataMO);
+                        // console.log(stdMO);
+                        chart.render();
+                    } else {
+                        graphCont.style.display = "none";
+                        graphEmpCont.innerHTML = "Data Not Found";
+                        console.log("Data Kosong");
                     }
-                });
+                },
+                error: function (error) {
+                    console.log(error);
+                    console.log("Data tidak terkirim");
+                }
             });
         });
-    </script>
+
+        $('#showGraph2').click(function () {
+            // var sessionId = $('#sessionId').val();
+            $.ajax({
+                url: '/countAllInterest',
+                data: $('#form2').serialize(),
+                type: 'POST',
+                async: true,
+                success: function (response) {
+                    var graphCont2 = document.getElementById("all-graph-container2");
+                    var graphEmpCont2 = document.getElementById("empty-graph-container2");
+                    console.log(response.success);
+                    console.log("Data Terkirim");
+                    if (response.success == true) {
+                        var dataLength = response.dataInterestValue.length;
+                        var uName = response.username;
+                        var idSession = response.idSession;
+                        var songList = response.dataInterestValue[0].song_list;
+                        var songKategori = response.dataInterestValue[0].song_kategori;
+                        var i;
+                        var one = 1;
+                        var avgMO2 = [];
+                        var rataMO2 = 0;
+                        var stdMO2 = 0;
+
+                        graphCont2.style.display = "block";
+                        console.log("Berhasil");
+                        // console.log(i);
+                        // console.log(typeof i);
+                        // console.log(dataLength);
+                        // console.log(typeof dataLength);
+
+                        for (i = 0; i < dataLength; i++) {
+                            var firstTS = response.dataInterestValue[0].ts;
+                            var recentTS = response.dataInterestValue[i].ts;
+
+                            var floatFirstTS = parseFloat(firstTS);
+                            var floatRecentTS = parseFloat(recentTS);
+                            var tempResultTS = floatRecentTS - floatFirstTS;
+                            var resultTS = tempResultTS.toFixed(2);
+                            // console.log(i);
+
+                            if (i == 0) {
+                                var recentMO = response.dataInterestValue[i].mo - response.dataInterestValue[
+                                    i].mo;
+                                var resultMO = parseFloat(recentMO);
+                                avgMO2.push(Math.abs(resultMO));
+                            } else {
+                                var lastMO = response.dataInterestValue[i - one].mo;
+                                var recentMO = response.dataInterestValue[i].mo;
+                                var resultMO = parseFloat(recentMO) - parseFloat(lastMO);
+                                avgMO2.push(Math.abs(resultMO));
+                            }
+
+                            dataAllGraph2.push({
+                                x: Math.abs(resultTS),
+                                y: Math.abs(resultMO)
+                            });
+                        }
+
+                        rataMO2 = average(avgMO2);
+                        stdMO2 = stdev(avgMO2);
+
+                        $('#idSessionDescriptionAG2').html(idSession);
+                        $('#userNameDescriptionAG2').html(uName);
+                        $('#songDescriptionAG2').html(songList);
+                        $('#kategoriDescriptionAG2').html(songKategori);
+                        $('#rata2DescriptionAG2').html(rataMO2);
+                        $('#sdDescriptionAG2').html(stdMO2);
+
+                        // console.log(dataAllGraph2);
+                        // console.log(avgMO2);
+                        // console.log(rataMO2);
+                        // console.log(stdMO2);
+                        chart2.render();
+                    } else {
+                        graphCont2.style.display = "none";
+                        graphEmpCont2.innerHTML = "Data Not Found";
+                        console.log("Data Kosong");
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                    console.log("Data tidak terkirim");
+                }
+            });
+        });
+
+        function average(array) {
+            var total = 0;
+            
+            for(i=0; i < array.length; i++){
+                total = total + array[i];
+            }
+
+            return total / array.length;
+        }
+
+        function stdev(array) {
+            var total = 0;
+            var arrayAvg = average(array);
+            var varian = 0;
+            var tempVarian = 0;
+            var sd = 0;
+            var xPangkat = 0;
+
+            for(i=0; i < array.length; i++){
+                xPangkat = Math.pow(parseFloat(array[i]) - parseFloat(arrayAvg),2);
+                tempVarian = tempVarian + xPangkat;
+            }
+
+            varian = tempVarian / array.length;
+            sd = Math.sqrt(varian);
+
+            return sd;
+        }
+    });
+</script>
 {% endblock %}
