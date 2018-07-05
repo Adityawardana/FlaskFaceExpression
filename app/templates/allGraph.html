@@ -64,7 +64,6 @@
             </select>
             <button id="showGraph2" class="ui teal submit button" type="button">Submit</button>
         </div>
-        <!-- <input type="number" id="sessionId" name="sessionId" placeholder="Id Session"> -->
     </form>
 </div>
 
@@ -96,11 +95,54 @@
 
 <!-- divider grafik dua dengan grafik tiga -->
 
+<div class="ui form container pad-tl-25">
+    <form class="ui form" role="form" method="POST" name="form3" id="form3">
+        <label>
+            <strong>Session</strong>
+        </label>
+        <div id="sub-btn-inl" class="inline field">
+            <select name="sessionId" class="ui selection dropdown">
+                <option value="" disabled selected>Id Session</option>
+                {% for data3 in dataSession %}
+                <option value="{{data3.id_session}}">{{data3.id_session}}</option>
+                {% endfor %}
+            </select>
+            <button id="showGraph3" class="ui teal submit button" type="button">Submit</button>
+        </div>
+    </form>
+</div>
+
+<div id="descriptionResultAG3" class="ui container pad-tl-25">
+    <strong>Id Session &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
+    <span id="idSessionDescriptionAG3"></span>
+    <br>
+    <strong>Username &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
+    <span id="userNameDescriptionAG3"></span>
+    <br>
+    <strong>Song &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
+    <span id="songDescriptionAG3"></span>
+    <br>
+    <strong>Kategori &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
+    <span id="kategoriDescriptionAG3"></span>
+    <br>
+    <strong>Rata-rata &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
+    <span id="rata2DescriptionAG3"></span>
+    <br>
+    <strong>Standar Deviasi &nbsp;&nbsp; : </strong>
+    <span id="sdDescriptionAG3"></span>
+    <br>
+</div>
+
+<div id="all-graph-container3" class="pad-tl-25" style="height: 400px; width:95%;"></div>
+<h1 class="center" id="empty-graph-container3"></h1>
+
+<div class="ui divider"></div>
 
 <script>
     $(document).ready(function () {
         var dataAllGraph = [];
         var dataAllGraph2 = [];
+        var dataAllGraph3 = [];
         
         var chart = new CanvasJS.Chart("all-graph-container", {
             zoomEnabled: true,
@@ -141,6 +183,27 @@
                 type: "splineArea",
                 color: "rgba(54,158,173,.7)",
                 dataPoints: dataAllGraph2
+            }]
+        });
+
+        var chart3 = new CanvasJS.Chart("all-graph-container3", {
+            zoomEnabled: true,
+            animationEnabled: true,
+            title: {
+                text: "Grafik Gerakan Mulut"
+            },
+            axisY: {
+                title: "Nilai Gerakan Mulut",
+                includeZero: true
+            },
+            axisX: {
+                title: "Time",
+                includeZero: true
+            },
+            data: [{
+                type: "splineArea",
+                color: "rgba(54,158,173,.7)",
+                dataPoints: dataAllGraph3
             }]
         });
 
@@ -309,6 +372,93 @@
                     } else {
                         graphCont2.style.display = "none";
                         graphEmpCont2.innerHTML = "Data Not Found";
+                        console.log("Data Kosong");
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                    console.log("Data tidak terkirim");
+                }
+            });
+        });
+
+        $('#showGraph3').click(function () {
+            // var sessionId = $('#sessionId').val();
+            $.ajax({
+                url: '/countAllInterest',
+                data: $('#form3').serialize(),
+                type: 'POST',
+                async: true,
+                success: function (response) {
+                    var graphCont3 = document.getElementById("all-graph-container3");
+                    var graphEmpCont3 = document.getElementById("empty-graph-container3");
+                    console.log(response.success);
+                    console.log("Data Terkirim");
+                    if (response.success == true) {
+                        var dataLength = response.dataInterestValue.length;
+                        var uName = response.username;
+                        var idSession = response.idSession;
+                        var songList = response.dataInterestValue[0].song_list;
+                        var songKategori = response.dataInterestValue[0].song_kategori;
+                        var i;
+                        var one = 1;
+                        var avgMO3 = [];
+                        var rataMO3 = 0;
+                        var stdMO3 = 0;
+
+                        graphCont3.style.display = "block";
+                        console.log("Berhasil");
+                        // console.log(i);
+                        // console.log(typeof i);
+                        // console.log(dataLength);
+                        // console.log(typeof dataLength);
+
+                        for (i = 0; i < dataLength; i++) {
+                            var firstTS = response.dataInterestValue[0].ts;
+                            var recentTS = response.dataInterestValue[i].ts;
+
+                            var floatFirstTS = parseFloat(firstTS);
+                            var floatRecentTS = parseFloat(recentTS);
+                            var tempResultTS = floatRecentTS - floatFirstTS;
+                            var resultTS = tempResultTS.toFixed(2);
+                            // console.log(i);
+
+                            if (i == 0) {
+                                var recentMO = response.dataInterestValue[i].mo - response.dataInterestValue[
+                                    i].mo;
+                                var resultMO = parseFloat(recentMO);
+                                avgMO3.push(Math.abs(resultMO));
+                            } else {
+                                var lastMO = response.dataInterestValue[i - one].mo;
+                                var recentMO = response.dataInterestValue[i].mo;
+                                var resultMO = parseFloat(recentMO) - parseFloat(lastMO);
+                                avgMO3.push(Math.abs(resultMO));
+                            }
+
+                            dataAllGraph3.push({
+                                x: Math.abs(resultTS),
+                                y: Math.abs(resultMO)
+                            });
+                        }
+
+                        rataMO3 = average(avgMO3);
+                        stdMO3 = stdev(avgMO3);
+
+                        $('#idSessionDescriptionAG3').html(idSession);
+                        $('#userNameDescriptionAG3').html(uName);
+                        $('#songDescriptionAG3').html(songList);
+                        $('#kategoriDescriptionAG3').html(songKategori);
+                        $('#rata2DescriptionAG3').html(rataMO3);
+                        $('#sdDescriptionAG3').html(stdMO3);
+
+                        // console.log(dataAllGraph2);
+                        // console.log(avgMO2);
+                        // console.log(rataMO2);
+                        // console.log(stdMO2);
+                        chart3.render();
+                    } else {
+                        graphCont3.style.display = "none";
+                        graphEmpCont3.innerHTML = "Data Not Found";
                         console.log("Data Kosong");
                     }
                 },
