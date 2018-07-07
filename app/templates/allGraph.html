@@ -213,7 +213,7 @@
                 url: '/countAllInterest',
                 data: $('#form1').serialize(),
                 type: 'POST',
-                async: true,
+                async: false,
                 success: function (response) {
                     var graphCont = document.getElementById("all-graph-container");
                     var graphEmpCont = document.getElementById("empty-graph-container");
@@ -301,7 +301,7 @@
                 url: '/countAllInterest',
                 data: $('#form2').serialize(),
                 type: 'POST',
-                async: true,
+                async: false,
                 success: function (response) {
                     var graphCont2 = document.getElementById("all-graph-container2");
                     var graphEmpCont2 = document.getElementById("empty-graph-container2");
@@ -388,7 +388,7 @@
                 url: '/countAllInterest',
                 data: $('#form3').serialize(),
                 type: 'POST',
-                async: true,
+                async: false,
                 success: function (response) {
                     var graphCont3 = document.getElementById("all-graph-container3");
                     var graphEmpCont3 = document.getElementById("empty-graph-container3");
