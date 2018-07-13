@@ -410,3 +410,40 @@ def allGraph():
         dbconn.close()
         if checkAllGraph == False:
             return "false"
+
+@app.route('/allGraphMO')
+def allGraphMO():
+    id_user = session.get('id_user')
+    dbconn = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='',
+        db='ffe',
+        charset='utf8mb4',
+        cursorclass=pymysql.cursors.DictCursor
+    )
+    checkAllGraphMO = False
+    try:
+        with dbconn.cursor() as cursor:
+            print(id_user)
+            type(id_user)
+            query = "SELECT DISTINCT s.id_session FROM tbl_session s INNER JOIN tbl_mo m ON s.id_session = m.id_session AND s.id_user = %s"
+            cursor.execute(query, (id_user,))
+            data = cursor.fetchall()
+            print(data)
+            checkAllGraphMO = True
+            print(checkAllGraphMO)
+
+            if len(data) is 0:
+                return render_template('allGraph_empty.html')
+                # result = {'success': False, 'url': None, 'message': 'Data Session User Kosong'}
+                # return jsonify(result)
+            else:
+                return render_template('allGraphMO.html', dataSession = data)
+    except Exception as err:
+        print(err)
+        return "error"
+    finally:
+        dbconn.close()
+        if checkAllGraphMO == False:
+            return "false"
