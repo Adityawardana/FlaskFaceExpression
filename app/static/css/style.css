@@ -71,6 +71,7 @@
 
 #playlist{
     list-style: none;
+    padding-left: 10px;
 }
 
 #playlist li a{
@@ -121,7 +122,14 @@
 
 #kategoriList {
     display: inline-grid;
-    margin-left: 5%;
+}
+
+#setKategori > button {
+    margin-top: 5px;
+}
+
+#resultKategori {
+    display: none;
 }
 
 /* The Close Button */
@@ -166,6 +174,7 @@ body > .grid {
 
 #audio-control {
     display: none;
+    margin-top: 10px;
 }
 
 #detection-controller {
@@ -219,6 +228,11 @@ body > .grid {
 
 #sub-btn-inl {
     margin-left: 20px;
+    margin-top: 10px;
+}
+
+#add-playlist {
+    display: none;
     margin-top: 10px;
 }
 /* #all-graph-container {

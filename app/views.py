@@ -216,7 +216,7 @@ def face_detection():
                     else:
                         id_session = dataSession['id_session']
                         session['id_session'] = id_session
-                        print(session.get('id_session'))
+                        # print(session.get('id_session'))
                         print("Success")
                         return render_template("face_detection_music.html", title="Face Detection Music")
         except Exception as err:
@@ -239,9 +239,9 @@ def getKeyToken(uName):
     strTok = strEnc + randNum + user
     tokEnc = base64.b64encode(strTok.encode('utf-8',errors = 'strict'))
 
-    print(randInt)
-    print(strEnc)
-    print(strTok)
+    # print(randInt)
+    # print(strEnc)
+    # print(strTok)
     # print(tokEnc)
     print ("Encoded String: " , tokEnc)
 
@@ -250,7 +250,7 @@ def getKeyToken(uName):
 @app.route('/mouthOpen', methods=['POST'])
 def mouthOpen():
     idSession = session.get('id_session')
-    print(idSession)
+    # print(idSession)
     dbconn = pymysql.connect(
         host='localhost',
         user='root',
@@ -272,7 +272,7 @@ def mouthOpen():
             ksStr = str(ks)
             tsStr = str(ts)
             moStr = str(mo)
-            print('ts = {}, mo = {}, sp = {}, ks = {}'.format(tsStr, moStr, spStr, ksStr))
+            # print('ts = {}, mo = {}, sp = {}, ks = {}'.format(tsStr, moStr, spStr, ksStr))
             with dbconn.cursor() as cursor:
                 query = "INSERT INTO `tbl_mo` (`id_session`, `ts`, `mo`, `song_list`, `song_kategori`) VALUES (%s, %s, %s, %s, %s)"
                 # query = "INSERT INTO `tbl_mo` (`id_mo`, `id_session`, `ts`, `mo`) VALUES (NULL, '"+idSession+"', '"+tsStr+"', '"+moStr+"')"
@@ -307,7 +307,7 @@ def countInterest():
             query = "SELECT * FROM `tbl_mo` WHERE `id_session` = %s ORDER BY `ts` ASC"
             cursor.execute(query, (idSession,))
             data = cursor.fetchall()
-            print(data)
+            # print(data)
             checkCountInterest = True
             print(checkCountInterest)
 

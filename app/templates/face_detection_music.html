@@ -8,6 +8,25 @@
             <div class="twelve wide column" id="chartContainer" style="height: 400px; width:75%;"></div>
                 
                 <div id="audioPlayer-container" class="four wide column">
+                    <div id="kategoriList">
+                        <form id="kategoriLagu"> 
+                            <strong>Kategori Lagu : </strong>
+                            <div id="setKategori">
+                                <input type="radio" id="stl" name="kategori" value="Suka Tau Lirik">
+                                <label for="kategoriChoice1">Suka Tau Lirik</label>
+                                
+                                <input type="radio" id="sttl" name="kategori" value="Suka Tidak Tau Lirik">
+                                <label for="kategoriChoice2">Suka Tidak Tau Lirik</label>
+
+                                <input type="radio" id="bd" name="kategori" value="Baru Dengar">
+                                <label for="kategoriChoice3">Baru Dengar</label><br>
+                                <button class="ui toggle button" type="submit">Set</button>
+                            </div>
+                          </form>
+                    </div>
+
+                    <p id="resultKategori">Kategori : <strong id="logKategoriSong" style="color: red;">Kategori belum ditentukan</strong></p>
+
                     <div id="audio-control">
                         <b>
                              <audio class="" id="audioPlayer" controls>
@@ -15,6 +34,7 @@
                              </audio>
                          </b>
                      </div>
+
                     <button class="ui positive button" id="add-playlist">Add Playlist</button>
                     <div class="ui divider"></div>
                     <div id="playlist-content"></div>
@@ -45,24 +65,6 @@
                     <div style="display: inline-grid;margin-left: 50px;">
                         <strong>LOG MESSAGES &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp;&nbsp;&nbsp;&nbsp;<span id="log-message"></span></strong>
                         <!-- <span id="logs"></span> -->
-                    </div>
-
-                    <div id="kategoriList">
-                        <form id="kategoriLagu"> 
-                            <strong>Kategori Lagu : </strong>
-                            <div id="setKategori">
-                                <input type="radio" id="stl" name="kategori" value="Suka Tau Lirik">
-                                <label for="kategoriChoice1">Suka Tau Lirik</label>
-                                
-                                <input type="radio" id="sttl" name="kategori" value="Suka Tidak Tau Lirik">
-                                <label for="kategoriChoice2">Suka Tidak Tau Lirik</label>
-
-                                <input type="radio" id="bd" name="kategori" value="Baru Dengar">
-                                <label for="kategoriChoice3">Baru Dengar</label>
-                                <button type="submit">Set</button>
-                            </div>
-                          </form>
-                          <p> Kategori : <strong id="logKategoriSong"></strong></p>
                     </div>
 
                     <div style="height:25em;">
@@ -113,6 +115,12 @@
             <button class="ui button" id="despacito-pl">Despacito</button>
             <button class="ui button" id="pernah-pl">Pernah</button>
             <button class="ui button" id="tentangRindu-pl">Tentang Rindu</button>
+            <button class="ui button" id="indonesiaRaya-pl">Indonesia Raya</button>
+            <button class="ui button" id="kembaliPulang-pl">Kembali Pulang</button>
+            <button class="ui button" id="pujaanHati-pl">Pujaan Hati</button>
+            <button class="ui button" id="sekaliIniSaja-pl">Sekali Ini Saja</button>
+            <button class="ui button" id="bersamamu-pl">Bersamamu</button>
+            <button class="ui button" id="brightAsTheSun-pl">Bright As The Sun</button>
             <div class="ui divider"></div>
             <strong>Rock</strong><br>
             <button class="ui button" id="heaven-pl">Heaven</button>

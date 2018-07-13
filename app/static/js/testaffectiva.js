@@ -17,7 +17,10 @@ $(document).ready(function () {
 
     // Get the button that opens the modal
     var pl_add = document.getElementById("add-playlist");
-
+    var formSongKategori = document.querySelector("#kategoriLagu");
+    var logSongKategori = document.querySelector("#logKategoriSong");
+    var divKategori = document.getElementById("kategoriList");
+    var resultKategori = document.getElementById("resultKategori");
     var audio_ctrl = document.getElementById("audio-control");
 
     // Add Song to playlist
@@ -44,6 +47,12 @@ $(document).ready(function () {
     var pl_despacito = document.getElementById("despacito-pl");
     var pl_pernah = document.getElementById("pernah-pl");
     var pl_tentangRindu = document.getElementById("tentangRindu-pl");
+    var pl_indonesiaRaya = document.getElementById("indonesiaRaya-pl");
+    var pl_kembaliPulang = document.getElementById("kembaliPulang-pl");
+    var pl_pujaanHati = document.getElementById("pujaanHati-pl");
+    var pl_sekaliIniSaja = document.getElementById("sekaliIniSaja-pl");
+    var pl_bersamamu = document.getElementById("bersamamu-pl");
+    var pl_brightAsTheSun = document.getElementById("brightAsTheSun-pl");
 
     // --- Rock ---
     var pl_heaven = document.getElementById("heaven-pl");
@@ -76,9 +85,6 @@ $(document).ready(function () {
     // Get the <span> element that closes the modal
     var close_modal = document.getElementsByClassName("close_modal")[0];
     var close_modal_result = document.getElementsByClassName("close_modal_result")[0];
-
-    var formSongKategori = document.querySelector("#kategoriLagu");
-    var logSongKategori = document.querySelector("#logKategoriSong");
 
     var dps = []; //dataPoints
     var chart = new CanvasJS.Chart("chartContainer", {
@@ -183,9 +189,9 @@ $(document).ready(function () {
             }
         });
 
-        console.log(dps);
-        console.log(ks);
-        console.log(sp);
+        // console.log(dps);
+        // console.log(ks);
+        // console.log(sp);
 
         if (dps.length > dataLength) {
             dps.shift();
@@ -195,6 +201,9 @@ $(document).ready(function () {
     });
 
     formSongKategori.addEventListener("submit", function(event) {
+        divKategori.style.display = "none";
+        resultKategori.style.display = "inline";
+        pl_add.style.display = "inline-block";
         var data = new FormData(formSongKategori);
         var output = "";
         for (const entry of data) {
@@ -524,6 +533,84 @@ $(document).ready(function () {
         var list_song = document.createTextNode("-Tentang Rindu ");
 
         c_a.setAttribute("href", "/static/songs/tentang%20rindu.mp3");
+        c_a.appendChild(list_song);
+    }
+
+    pl_indonesiaRaya.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Indonesia Raya ");
+
+        c_a.setAttribute("href", "/static/songs/indonesia%20raya.mp3");
+        c_a.appendChild(list_song);
+    }
+
+    pl_kembaliPulang.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Kembali Pulang ");
+
+        c_a.setAttribute("href", "/static/songs/kembali%20pulang.mp3");
+        c_a.appendChild(list_song);
+    }
+
+    pl_pujaanHati.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Pujaan Hati ");
+
+        c_a.setAttribute("href", "/static/songs/pujaan%20hati.mp3");
+        c_a.appendChild(list_song);
+    }
+
+    pl_sekaliIniSaja.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Sekali Ini Saja ");
+
+        c_a.setAttribute("href", "/static/songs/sekali%20ini%20saja.mp3");
+        c_a.appendChild(list_song);
+    }
+
+    pl_bersamamu.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Bersamamu ");
+
+        c_a.setAttribute("href", "/static/songs/bersamamu.mp3");
+        c_a.appendChild(list_song);
+    }
+
+    pl_brightAsTheSun.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Bright As The Sun ");
+
+        c_a.setAttribute("href", "/static/songs/bright%20as%20the%20sun.mp3");
         c_a.appendChild(list_song);
     }
 
