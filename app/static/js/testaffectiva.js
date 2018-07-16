@@ -25,6 +25,7 @@ $(document).ready(function () {
 
     // Add Song to playlist
     // --- Pop ---
+    var pl_akhirnya = document.getElementById("akhirnya-pl");
     var pl_ayah = document.getElementById("ayah-pl");
     var pl_bahagia = document.getElementById("bahagia-pl");
     var pl_benciUntukMencinta = document.getElementById("benciUntukMencinta-pl");
@@ -35,7 +36,6 @@ $(document).ready(function () {
     var pl_happy = document.getElementById("happy-pl");
     var pl_lebihIndah = document.getElementById("lebihIndah-pl");
     var pl_manusiaBodoh = document.getElementById("manusiaBodoh-pl");
-    var pl_pastiBisa = document.getElementById("pastiBisa-pl");
     var pl_selamatPagi = document.getElementById("selamatPagi-pl");
     var pl_semuaTentangKita = document.getElementById("semuaTentangKita-pl");
     var pl_sepertiYangKauMinta = document.getElementById("sepertiYangKauMinta-pl");
@@ -53,14 +53,8 @@ $(document).ready(function () {
     var pl_sekaliIniSaja = document.getElementById("sekaliIniSaja-pl");
     var pl_bersamamu = document.getElementById("bersamamu-pl");
     var pl_brightAsTheSun = document.getElementById("brightAsTheSun-pl");
-
-    // --- Rock ---
-    var pl_heaven = document.getElementById("heaven-pl");
-    var pl_itsMyLife = document.getElementById("itsMyLife-pl");
-    
-    // --- Jazz ---
-    var pl_carelessWhisper = document.getElementById("carelessWhisper-pl");
-    var pl_feelingGood = document.getElementById("feelingGood-pl");
+    var pl_attention = document.getElementById("attention-pl");
+    var pl_allOfMe = document.getElementById("allOfMe-pl");
 
     // --- Dangdut ---
     var pl_lagiSyantik = document.getElementById("lagiSyantik-pl");
@@ -69,17 +63,38 @@ $(document).ready(function () {
     var pl_sayang2 = document.getElementById("sayang2-pl");
     var pl_jaranGoyang = document.getElementById("jaranGoyang-pl");
     var pl_ditinggalRabi = document.getElementById("ditinggalRabi-pl");
+    var pl_goyangDumang = document.getElementById("goyangDumang-pl");
+    var pl_sakitnyaTuhDisini = document.getElementById("sakitnyaTuhDisini-pl");
+    var pl_penasaran = document.getElementById("penasaran-pl");
+    var pl_darahMuda = document.getElementById("darahMuda-pl");
+
+    // --- Rock ---
+    var pl_heaven = document.getElementById("heaven-pl");
+    var pl_itsMyLife = document.getElementById("itsMyLife-pl");
+    var pl_smellsLikeTeenSpirit = document.getElementById("smellsLikeTeenSpirit-pl");
+    var pl_bringMeToLife = document.getElementById("bringMeToLife-pl");
+    var pl_sweetChildOfMine = document.getElementById("sweetChildOfMine-pl");
+    
+    // --- Jazz ---
+    var pl_carelessWhisper = document.getElementById("carelessWhisper-pl");
+    var pl_feelingGood = document.getElementById("feelingGood-pl");
+    var pl_pastiBisa = document.getElementById("pastiBisa-pl");
+    var pl_cryMeARiver = document.getElementById("cryMeARiver-pl");
+    var pl_sway = document.getElementById("sway-pl");
 
     // --- Reggae ---
     var pl_santaiSaja = document.getElementById("santaiSaja-pl");
     var pl_welcomeToMyParadise = document.getElementById("welcomeToMyParadise-pl");
+    var pl_noWomenNoCry = document.getElementById("noWomenNoCry-pl");
+    var pl_kembaliBerdansa = document.getElementById("kembaliBerdansa-pl");
+    var pl_diSayidan = document.getElementById("diSayidan-pl");
 
     // --- Religi ---
-    var pl_akhirnya = document.getElementById("akhirnya-pl");
     var pl_deenAssalam = document.getElementById("deenAssalam-pl");
     var pl_rapuh = document.getElementById("rapuh-pl");
     var pl_tomboAti = document.getElementById("tomboAti-pl");
     var pl_bilaWaktuTelahBerakhir = document.getElementById("bilaWaktuTelahBerakhir-pl");
+    var pl_ramadhan = document.getElementById("ramadhan-pl");
 
 
     // Get the <span> element that closes the modal
@@ -250,6 +265,19 @@ $(document).ready(function () {
 
     // -------------------- Add Song to list of playlist -----------------------------------
     // --- Pop ---
+    pl_akhirnya.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Akhirnya ");
+
+        c_a.setAttribute("href", "/static/songs/akhirnya.mp3");
+        c_a.appendChild(list_song);
+    }
+
     pl_ayah.onclick = function () {
         pl_add.style.display = "none";
         audio_ctrl.style.display = "block";
@@ -377,19 +405,6 @@ $(document).ready(function () {
         var list_song = document.createTextNode("-Manusia Bodoh ");
 
         c_a.setAttribute("href", "/static/songs/manusia%20bodoh.mp3");
-        c_a.appendChild(list_song);
-    }
-
-    pl_pastiBisa.onclick = function () {
-        pl_add.style.display = "none";
-        audio_ctrl.style.display = "block";
-        var node_list = document.createElement("LI");
-        document.getElementById("playlist").appendChild(node_list);
-        var c_a = document.createElement("A");
-        node_list.appendChild(c_a);
-        var list_song = document.createTextNode("-Pasti Bisa ");
-
-        c_a.setAttribute("href", "/static/songs/pasti%20bisa.mp3");
         c_a.appendChild(list_song);
     }
 
@@ -614,60 +629,32 @@ $(document).ready(function () {
         c_a.appendChild(list_song);
     }
 
-    // --- Rock ---
-    pl_heaven.onclick = function () {
+    pl_attention.onclick = function () {
         pl_add.style.display = "none";
         audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
         node_list.appendChild(c_a);
-        var list_song = document.createTextNode("-Heaven ");
+        var list_song = document.createTextNode("-Attention ");
 
-        c_a.setAttribute("href", "/static/songs/heaven.mp3");
+        c_a.setAttribute("href", "/static/songs/attention.mp3");
         c_a.appendChild(list_song);
     }
-
-    pl_itsMyLife.onclick = function () {
+    
+    pl_allOfMe.onclick = function () {
         pl_add.style.display = "none";
         audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
         node_list.appendChild(c_a);
-        var list_song = document.createTextNode("-Its My Life ");
+        var list_song = document.createTextNode("-All Of Me ");
 
-        c_a.setAttribute("href", "/static/songs/its%20my%20life.mp3");
+        c_a.setAttribute("href", "/static/songs/all%20of%20me.mp3");
         c_a.appendChild(list_song);
     }
-
-    // --- Jazz ---
-    pl_carelessWhisper.onclick = function () {
-        pl_add.style.display = "none";
-        audio_ctrl.style.display = "block";
-        var node_list = document.createElement("LI");
-        document.getElementById("playlist").appendChild(node_list);
-        var c_a = document.createElement("A");
-        node_list.appendChild(c_a);
-        var list_song = document.createTextNode("-Careless Whisper ");
-
-        c_a.setAttribute("href", "/static/songs/careless%20whisper.mp3");
-        c_a.appendChild(list_song);
-    }
-
-    pl_feelingGood.onclick = function () {
-        pl_add.style.display = "none";
-        audio_ctrl.style.display = "block";
-        var node_list = document.createElement("LI");
-        document.getElementById("playlist").appendChild(node_list);
-        var c_a = document.createElement("A");
-        node_list.appendChild(c_a);
-        var list_song = document.createTextNode("-Feeling Good ");
-
-        c_a.setAttribute("href", "/static/songs/feeling%20good.mp3");
-        c_a.appendChild(list_song);
-    }
-
+    
     // --- Dangdut ---
     pl_lagiSyantik.onclick = function () {
         pl_add.style.display = "none";
@@ -746,7 +733,191 @@ $(document).ready(function () {
         c_a.setAttribute("href", "/static/songs/ditinggal%20rabi.mp3");
         c_a.appendChild(list_song);
     }
+
+    pl_goyangDumang.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Goyang Dumang ");
+
+        c_a.setAttribute("href", "/static/songs/goyang%20dumang.mp3");
+        c_a.appendChild(list_song);
+    }
+
+    pl_sakitnyaTuhDisini.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Sakitnya Tuh Disini ");
+
+        c_a.setAttribute("href", "/static/songs/sakitnya%20tuh%20disini.mp3");
+        c_a.appendChild(list_song);
+    }
+
+    pl_penasaran.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Penasaran ");
+
+        c_a.setAttribute("href", "/static/songs/penasaran.mp3");
+        c_a.appendChild(list_song);
+    }
+
+    pl_darahMuda.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Darah Muda ");
+
+        c_a.setAttribute("href", "/static/songs/darah%20muda.mp3");
+        c_a.appendChild(list_song);
+    }
     
+    // --- Rock ---
+    pl_heaven.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Heaven ");
+
+        c_a.setAttribute("href", "/static/songs/heaven.mp3");
+        c_a.appendChild(list_song);
+    }
+
+    pl_itsMyLife.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Its My Life ");
+
+        c_a.setAttribute("href", "/static/songs/its%20my%20life.mp3");
+        c_a.appendChild(list_song);
+    }
+
+    pl_smellsLikeTeenSpirit.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Smells Like Teen Spirit ");
+
+        c_a.setAttribute("href", "/static/songs/smells%20like%20teen%20spirit.mp3");
+        c_a.appendChild(list_song);
+    }
+
+    pl_bringMeToLife.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Bring Me To Life ");
+
+        c_a.setAttribute("href", "/static/songs/bring%20me%20to%20life.mp3");
+        c_a.appendChild(list_song);
+    }
+
+    pl_sweetChildOfMine.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Sweet Child Of Mine ");
+
+        c_a.setAttribute("href", "/static/songs/sweet%20child%20of%20mine.mp3");
+        c_a.appendChild(list_song);
+    }
+
+    // --- Jazz ---
+    pl_carelessWhisper.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Careless Whisper ");
+
+        c_a.setAttribute("href", "/static/songs/careless%20whisper.mp3");
+        c_a.appendChild(list_song);
+    }
+
+    pl_feelingGood.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Feeling Good ");
+
+        c_a.setAttribute("href", "/static/songs/feeling%20good.mp3");
+        c_a.appendChild(list_song);
+    }
+
+    pl_pastiBisa.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Pasti Bisa ");
+
+        c_a.setAttribute("href", "/static/songs/pasti%20bisa.mp3");
+        c_a.appendChild(list_song);
+    }
+
+    pl_cryMeARiver.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Cry Me A River ");
+
+        c_a.setAttribute("href", "/static/songs/cry%20me%20a%20river.mp3");
+        c_a.appendChild(list_song);
+    }
+
+    pl_sway.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-sway ");
+
+        c_a.setAttribute("href", "/static/songs/sway.mp3");
+        c_a.appendChild(list_song);
+    }
+       
     // --- Reggae ---
     pl_santaiSaja.onclick = function () {
         pl_add.style.display = "none";
@@ -774,20 +945,46 @@ $(document).ready(function () {
         c_a.appendChild(list_song);
     }
 
-    // --- Religi ---
-    pl_akhirnya.onclick = function () {
+    pl_noWomenNoCry.onclick = function () {
         pl_add.style.display = "none";
         audio_ctrl.style.display = "block";
         var node_list = document.createElement("LI");
         document.getElementById("playlist").appendChild(node_list);
         var c_a = document.createElement("A");
         node_list.appendChild(c_a);
-        var list_song = document.createTextNode("-Akhirnya ");
+        var list_song = document.createTextNode("-No Women No Cry ");
 
-        c_a.setAttribute("href", "/static/songs/akhirnya.mp3");
+        c_a.setAttribute("href", "/static/songs/no%20women%20no%20cry.mp3");
         c_a.appendChild(list_song);
-    }  
-    
+    }
+
+    pl_kembaliBerdansa.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Kembali Berdansa ");
+
+        c_a.setAttribute("href", "/static/songs/kembali%20berdansa.mp3");
+        c_a.appendChild(list_song);
+    }
+
+    pl_diSayidan.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Di Sayidan ");
+
+        c_a.setAttribute("href", "/static/songs/di%20sayidan.mp3");
+        c_a.appendChild(list_song);
+    }
+
+    // --- Religi ---    
     pl_deenAssalam.onclick = function () {
         pl_add.style.display = "none";
         audio_ctrl.style.display = "block";
@@ -837,6 +1034,19 @@ $(document).ready(function () {
         var list_song = document.createTextNode("-Bila Waktu Telah Berakhir ");
 
         c_a.setAttribute("href", "/static/songs/bila%20waktu%20telah%20berakhir.mp3");
+        c_a.appendChild(list_song);
+    }
+    
+    pl_ramadhan.onclick = function () {
+        pl_add.style.display = "none";
+        audio_ctrl.style.display = "block";
+        var node_list = document.createElement("LI");
+        document.getElementById("playlist").appendChild(node_list);
+        var c_a = document.createElement("A");
+        node_list.appendChild(c_a);
+        var list_song = document.createTextNode("-Ramadhan ");
+
+        c_a.setAttribute("href", "/static/songs/ramadhan.mp3");
         c_a.appendChild(list_song);
     }
     // ----------------------------- end of add playlist ---------------------------------------

@@ -12,11 +12,11 @@
                         <form id="kategoriLagu"> 
                             <strong>Kategori Lagu : </strong>
                             <div id="setKategori">
-                                <input type="radio" id="stl" name="kategori" value="Suka Tau Lirik">
-                                <label for="kategoriChoice1">Suka Tau Lirik</label>
+                                <input type="radio" id="stl" name="kategori" value="Hafal Lirik">
+                                <label for="kategoriChoice1">Hafal Lirik</label>
                                 
-                                <input type="radio" id="sttl" name="kategori" value="Suka Tidak Tau Lirik">
-                                <label for="kategoriChoice2">Suka Tidak Tau Lirik</label>
+                                <input type="radio" id="sttl" name="kategori" value="Tidak Hafal Lirik">
+                                <label for="kategoriChoice2">Tidak Hafal Lirik</label>
 
                                 <input type="radio" id="bd" name="kategori" value="Baru Dengar">
                                 <label for="kategoriChoice3">Baru Dengar</label><br>
@@ -90,63 +90,850 @@
         <div class="modal-content">
             <span class="close_modal close icon">&times;</span>
             <br><strong>List Lagu</strong>
+            <!-- Tab links -->
+            <div class="tab">
+                <button class="tablinks" onclick="openGenre(event, 'menuPop')" id="defaultOpen">Pop</button>
+                <button class="tablinks" onclick="openGenre(event, 'menuDangdut')">Dangdut</button>
+                <button class="tablinks" onclick="openGenre(event, 'menuRock')">Rock</button>
+                <button class="tablinks" onclick="openGenre(event, 'menuJazz')">Jazz</button>
+                <button class="tablinks" onclick="openGenre(event, 'menuReggae')">Reggae</button>
+                <button class="tablinks" onclick="openGenre(event, 'menuReligi')">Religi</button>
+            </div>
+            
             <div class="ui divider"></div>
-            <strong>Pop</strong><br>
-            <button class="ui button" id="akhirnya-pl">Akhirnya</button>
-            <button class="ui button" id="ayah-pl">Ayah</button>
-            <button class="ui button" id="bahagia-pl">Bahagia</button>
-            <button class="ui button" id="benciUntukMencinta-pl">Benci Untuk Mencinta</button>
-            <button class="ui button" id="beritaKepadaKawan-pl">Berita Kepada Kawan</button>
-            <button class="ui button" id="bukaSemangatBaru-pl">Buka Semangat Baru</button>
-            <button class="ui button" id="bukanDiaTapiAku-pl">Bukan Dia Tapi Aku</button>
-            <button class="ui button" id="bunda-pl">Bunda</button>
-            <button class="ui button" id="happy-pl">Happy</button>
-            <button class="ui button" id="lebihIndah-pl">Lebih Indah</button>
-            <button class="ui button" id="manusiaBodoh-pl">Manusia Bodoh</button>
-            <button class="ui button" id="pastiBisa-pl">Pasti Bisa</button>
-            <button class="ui button" id="selamatPagi-pl">Selamat Pagi</button>
-            <button class="ui button" id="semuaTentangKita-pl">Semua Tentang Kita</button>
-            <button class="ui button" id="sepertiYangKauMinta-pl">Seperti Yang Kau Minta</button>
-            <button class="ui button" id="sugar-pl">Sugar</button>
-            <button class="ui button" id="tetapSemangat-pl">Tetap Semangat</button>
-            <button class="ui button" id="uptownFunk-pl">Uptown Funk</button>
-            <button class="ui button" id="moreThanWords-pl">More Than Words</button>
-            <button class="ui button" id="weWillNotGoDown-pl">We Will Not Go Down</button>
-            <button class="ui button" id="despacito-pl">Despacito</button>
-            <button class="ui button" id="pernah-pl">Pernah</button>
-            <button class="ui button" id="tentangRindu-pl">Tentang Rindu</button>
-            <button class="ui button" id="indonesiaRaya-pl">Indonesia Raya</button>
-            <button class="ui button" id="kembaliPulang-pl">Kembali Pulang</button>
-            <button class="ui button" id="pujaanHati-pl">Pujaan Hati</button>
-            <button class="ui button" id="sekaliIniSaja-pl">Sekali Ini Saja</button>
-            <button class="ui button" id="bersamamu-pl">Bersamamu</button>
-            <button class="ui button" id="brightAsTheSun-pl">Bright As The Sun</button>
-            <div class="ui divider"></div>
-            <strong>Rock</strong><br>
-            <button class="ui button" id="heaven-pl">Heaven</button>
-            <button class="ui button" id="itsMyLife-pl">Its My Life</button>
-            <div class="ui divider"></div>
-            <strong>Jazz</strong><br>
-            <button class="ui button" id="carelessWhisper-pl">Careless Whisper</button>
-            <button class="ui button" id="feelingGood-pl">Feeling Good</button>
-            <div class="ui divider"></div>
-            <strong>Dangdut</strong><br>
-            <button class="ui button" id="lagiSyantik-pl">Lagi Syantik</button>
-            <button class="ui button" id="nasiPadang-pl">Goyang Nasi Padang</button>
-            <button class="ui button" id="sayang-pl">Sayang</button>
-            <button class="ui button" id="sayang2-pl">Sayang 2</button>
-            <button class="ui button" id="jaranGoyang-pl">Jaran Goyang</button>
-            <button class="ui button" id="ditinggalRabi-pl">Ditinggal Rabi</button>
-            <div class="ui divider"></div>
-            <strong>Reggae</strong><br>
-            <button class="ui button" id="santaiSaja-pl">Santai Saja</button>
-            <button class="ui button" id="welcomeToMyParadise-pl">Welcome to My Paradise</button>
-            <div class="ui divider"></div>
-            <strong>Religi</strong><br>
-            <button class="ui button" id="deenAssalam-pl">Deen Assalam</button>
-            <button class="ui button" id="rapuh-pl">Rapuh</button>
-            <button class="ui button" id="tomboAti-pl">Tombo Ati</button>
-            <button class="ui button" id="bilaWaktuTelahBerakhir-pl">Bila Waktu Telah Berakhir</button>
+            
+            <!-- Tab content -->
+            <div id="menuPop" class="tabcontent">
+                <div class="ui six doubling cards">
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Akhirnya</a>
+                            <div class="meta">
+                                <a>Gigi</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="akhirnya-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Ayah</a>
+                            <div class="meta">
+                                <a>Ariel</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="ayah-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Bahagia</a>
+                            <div class="meta">
+                                <a>GAC</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="bahagia-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Benci Untuk Mencinta</a>
+                            <div class="meta">
+                                <a>Naif</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="benciUntukMencinta-pl">Naif</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Berita Kepada Kawan</a>
+                            <div class="meta">
+                                <a>Ebiet G Ade</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="beritaKepadaKawan-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Buka Semangat Baru</a>
+                            <div class="meta">
+                                <a>Ello</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="bukaSemangatBaru-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Bukan Dia Tapi Aku</a>
+                            <div class="meta">
+                                <a>Judika</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="bukanDiaTapiAku-pl">Add</button>
+                        </div>
+                    </div>
+                
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Bunda</a>
+                            <div class="meta">
+                                <a>Melly Goeslaw</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="bunda-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Happy</a>
+                            <div class="meta">
+                                <a>Pharel Williams</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="happy-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Lebih Indah</a>
+                            <div class="meta">
+                                <a>Adera</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="lebihIndah-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Manusia Bodoh</a>
+                            <div class="meta">
+                                <a>Ada Band</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="manusiaBodoh-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Selamat Pagi</a>
+                            <div class="meta">
+                                <a>Ran</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="selamatPagi-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Semua Tentang Kita</a>
+                            <div class="meta">
+                                <a>Peterpan</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="semuaTentangKita-pl">Add</button>
+                        </div>
+                    </div>
+                
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Seperti Yang Kau Minta</a>
+                            <div class="meta">
+                                <a>Chrisye</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="sepertiYangKauMinta-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Sugar</a>
+                            <div class="meta">
+                                <a>Maroon 5</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="sugar-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Tetap Semangat</a>
+                            <div class="meta">
+                                <a>Bondan Feat Fade 2 Black</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="tetapSemangat-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Uptown Funk</a>
+                            <div class="meta">
+                                <a>Bruno Mars</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="uptownFunk-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">More Than Words</a>
+                            <div class="meta">
+                                <a>Extreme</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="moreThanWords-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">We Will Not Go Down</a>
+                            <div class="meta">
+                                <a>Michael Heart</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="weWillNotGoDown-pl">Add</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Despacito</a>
+                            <div class="meta">
+                                <a>Luis Fonsi Feat Daddy Yanke</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="despacito-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Pernah</a>
+                            <div class="meta">
+                                <a>Azmi</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="pernah-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Tentang Rindu</a>
+                            <div class="meta">
+                                <a>Virzha</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="tentangRindu-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Indonesia Raya</a>
+                            <div class="meta">
+                                <a>W.R Supratman</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="indonesiaRaya-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Kembali Pulang</a>
+                            <div class="meta">
+                                <a>Kangen Band</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="kembaliPulang-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Pujaan Hati</a>
+                            <div class="meta">
+                                <a>Kangen Band</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="pujaanHati-pl">Add</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Sekali Ini Saja</a>
+                            <div class="meta">
+                                <a>Glen Fredy</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="sekaliIniSaja-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Bersamamu</a>
+                            <div class="meta">
+                                <a>Vierra</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="bersamamu-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Bright As The Sun</a>
+                            <div class="meta">
+                                <a>Energy 18</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="brightAsTheSun-pl">Add</button>
+                        </div>
+                    </div>
+                    <!--Not Added-->
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Attention</a>
+                            <div class="meta">
+                                <a>Charlie Puth</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="attention-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">All Of Me</a>
+                            <div class="meta">
+                                <a>John Legend</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="allOfMe-pl">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="menuDangdut" class="tabcontent">
+                <div class="ui six doubling cards">
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Lagi Syantik</a>
+                            <div class="meta">
+                                <a>Siti Badriyah</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="lagiSyantik-pl">Add</button>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Goyang Nasi Padang</a>
+                            <div class="meta">
+                                <a>Duo Anggrek</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="nasiPadang-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Sayang</a>
+                            <div class="meta">
+                                <a>Via Vallen</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="sayang-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Sayang 2</a>
+                            <div class="meta">
+                                <a>Nella Kharisma</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="sayang2-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Jaran Goyang</a>
+                            <div class="meta">
+                                <a>Nella Kharisma</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="jaranGoyang-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Ditinggal Rabi</a>
+                            <div class="meta">
+                                <a>Nella Kharisma</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="ditinggalRabi-pl">Add</button>
+                        </div>
+                    </div>
+
+                    <!--Not Added-->
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Goyang Dumang</a>
+                            <div class="meta">
+                                <a>Cita Citata</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="goyangDumang-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Sakitnya Tuh Disini</a>
+                            <div class="meta">
+                                <a>Cita Citata</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="sakitnyaTuhDisini-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Penasaran</a>
+                            <div class="meta">
+                                <a>Rhoma Irama</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="penasaran-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Darah Muda</a>
+                            <div class="meta">
+                                <a>Rhoma Irama</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="darahMuda-pl">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="menuRock" class="tabcontent">
+                <div class="ui six doubling cards">
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg">
+                        </div>
+                        <div class="content">
+                            <a class="header">Heaven</a>
+                            <div class="meta">
+                                <a>Bryan Adams</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="heaven-pl">Add</button>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg">
+                        </div>
+                        <div class="content">
+                            <a class="header">Its My Life</a>
+                            <div class="meta">
+                                <a>Bon Jovi</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="itsMyLife-pl">Add</button>
+                        </div>
+                    </div>
+                    
+                    <!--Not Added-->
+                    
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg">
+                        </div>
+                        <div class="content">
+                            <a class="header">Smells Like Teen Spirit</a>
+                            <div class="meta">
+                                <a>Nirvana</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="smellsLikeTeenSpirit-pl">Add</button>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg">
+                        </div>
+                        <div class="content">
+                            <a class="header">Bring My To Life</a>
+                            <div class="meta">
+                                <a>Evanescence</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="bringMeToLife-pl">Add</button>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg">
+                        </div>
+                        <div class="content">
+                            <a class="header">Sweet Child Of Mine</a>
+                            <div class="meta">
+                                <a>Guns and Rose</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="sweetChildOfMine-pl">Add</button>
+                        </div>
+                    </div>        
+                </div>        
+            </div>
+                        
+            <div id="menuJazz" class="tabcontent">
+                <div class="ui six doubling cards">
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Careless Whisper</a>
+                            <div class="meta">
+                                <a>George Michaels</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="carelessWhisper-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Feeling Good</a>
+                            <div class="meta">
+                                <a>Michael Buble</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="feelingGood-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Pasti Bisa</a>
+                            <div class="meta">
+                                <a>Citra Scholastika</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="pastiBisa-pl">Add</button>
+                        </div>
+                    </div>
+                    <!--Not Added-->
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Cry Me A River</a>
+                            <div class="meta">
+                                <a>Michael Buble</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="cryMeARiver-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Sway</a>
+                            <div class="meta">
+                                <a>Michael Buble</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="sway-pl">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="menuReggae" class="tabcontent">
+                <div class="ui six doubling cards">
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Santai Saja</a>
+                            <div class="meta">
+                                <a>Saint Loco</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="santaiSaja-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Welcome to My Paradise</a>
+                            <div class="meta">
+                                <a>Steven and Coconut Treez</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="welcomeToMyParadise-pl">Add</button>
+                        </div>
+                    </div>
+                    <!--Not Added-->
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">No Women No Cry</a>
+                            <div class="meta">
+                                <a>Bob Marley</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="noWomenNoCry-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Kembali Berdansa</a>
+                            <div class="meta">
+                                <a>Shaggydog</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="kembaliBerdansa-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Di Sayidan</a>
+                            <div class="meta">
+                                <a>Shaggydog</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="diSayidan-pl">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="menuReligi" class="tabcontent">
+                <div class="ui six doubling cards">
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Deen Assalam</a>
+                            <div class="meta">
+                                <a>Sabyan</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="deenAssalam-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Rapuh</a>
+                            <div class="meta">
+                                <a>Opick</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="rapuh-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Tombo Ati</a>
+                            <div class="meta">
+                                <a>Opick</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="tomboAti-pl">Add</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Bila Waktu Telah Berakhir</a>
+                            <div class="meta">
+                                <a>Opick</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="bilaWaktuTelahBerakhir-pl">Add</button>
+                        </div>
+                    </div>
+                    <!--Not Added-->
+                    <div class="card">
+                        <div class="image">
+                            <img src="https://semantic-ui.com/images/avatar/large/steve.jpg"> </div>
+                        <div class="content">
+                            <a class="header">Ramadhan</a>
+                            <div class="meta">
+                                <a>Maher Zain</a>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <button class="ui button" id="ramadhan-pl">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -163,5 +950,29 @@
         </div>
     </div>
 <!--<script src="{{ url_for('static', filename='js/testaffectiva.js') }}" type="text/javascript"> </script>-->
+<script>
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
 
+    function openGenre(evt, cityName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
 {% endblock %}

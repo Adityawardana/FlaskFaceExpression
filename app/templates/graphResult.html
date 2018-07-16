@@ -14,24 +14,30 @@
     </div>
 
     <div id="descriptionResult" class="ui container pad-tl-25">
-        <strong>Id Session &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
+        <strong>Id Session &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
         <span id="idSessionDescription"></span>
         <br>
-        <strong>Username &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
+        <strong>Username &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
         <span id="userNameDescription"></span>
         <br>
-        <strong>Song &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
+        <strong>Song &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
         <span id="songDescription"></span>
         <br>
-        <strong>Kategori &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
+        <strong>Kategori &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
         <span id="kategoriDescription"></span>
         <br>
-        <strong>Rata-rata &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
+        <strong>Rata-rata &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </strong>
         <span id="rata2Description"></span>
         <br>
-        <strong>Standar Deviasi &nbsp;&nbsp; : </strong>
+        <strong>Standar Deviasi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </strong>
         <span id="sdDescription"></span>
         <br>
+        <strong>Hasil Gerakan Mulut &nbsp;&nbsp; : </strong>
+        <span id="hasilGMDescription"></span>
+        <br>
+        <!-- <strong>Hasil Mouth Open &nbsp;&nbsp; : </strong>
+        <span id="hasilMODescription"></span>
+        <br> -->
     </div>
 
     <div id="graph-result-container" class="pad-tl-25" style="height: 400px; width:95%;">
@@ -79,6 +85,25 @@
                             var avgMO = [];
                             var rataMO = 0;
                             var stdMO = 0;
+                            var msgHasilGM = "";
+
+                            // Hafal lirik ------------------
+                            var avgRata2AllGM_STL = 7.630882971;
+                            // var avgRata2AllMO_STL = 0;
+                            var avgStdAllGM_STL = 15.02780034;
+                            // var avgStdAllMO_STL = 0;
+
+                            // tidak Hafal lirik ------------
+                            var avgRata2AllGM_STTL = 5.607946322;
+                            // var avgRata2AllMO_STTL = 0;
+                            var avgStdAllGM_STTL = 12.80893656;
+                            // var avgStdAllMO_STTL = 0;
+
+                            // baru dengar ---------------------
+                            var avgRata2AllGM_BD = 4.374827332;
+                            // var avgRata2AllMO_BD = 0;
+                            var avgStdAllGM_BD = 10.75043368;
+                            // var avgStdAllMO_BD = 0;
 
                             console.log("Berhasil");
                             // console.log(i);
@@ -94,7 +119,7 @@
                                 var floatRecentTS = parseFloat(recentTS);
                                 var tempResultTS = floatRecentTS - floatFirstTS;
                                 var resultTS = tempResultTS.toFixed(2);
-                                console.log(i);
+                                // console.log(i);
 
                                 if(i == 0){
                                     var recentMO = response.dataInterestValue[i].mo - response.dataInterestValue[i].mo;
@@ -116,13 +141,41 @@
 
                             rataMO = average(avgMO);
                             stdMO = stdev(avgMO);
+                            
+                            if(songKategori == "Hafal Lirik"){
+                                if(rataMO >= avgRata2AllGM_STL || stdMO >= avgStdAllGM_STL){
+                                    // interested
+                                    msgHasilGM = "Anda ekspresif. Sepertinya anda tertarik dengan lagu ini";
+                                } else{
+                                    // not interested
+                                    msgHasilGM = "Anda kurang ekspresif. Sepertinya anda kurang tertarik dengan lagu ini";
+                                }
+                            } else if(songKategori == "Tidak Hafal Lirik"){
+                                if(rataMO >= avgRata2AllGM_STTL || stdMO >= avgStdAllGM_STTL){
+                                    // interested
+                                    msgHasilGM = "Anda ekspresif. Sepertinya anda tertarik dengan lagu ini";
+                                } else{
+                                    // not interested
+                                    msgHasilGM = "Anda kurang ekspresif. Sepertinya anda kurang tertarik dengan lagu ini";
+                                }
+                            } else if(songKategori == "Baru Dengar"){
+                                if(rataMO >= avgRata2AllGM_BD || stdMO >= avgStdAllGM_BD){
+                                    // interested
+                                    msgHasilGM = "Anda ekspresif. Sepertinya anda tertarik dengan lagu ini";
+                                } else{
+                                    // not interested
+                                    msgHasilGM = "Anda kurang ekspresif. Sepertinya anda kurang tertarik dengan lagu ini";
+                                }
+                            }
 
                             $('#idSessionDescription').html(idSession);
                             $('#userNameDescription').html(uName);
                             $('#songDescription').html(songList);
                             $('#kategoriDescription').html(songKategori);
-                            $('#rata2Description').html(rataMO);
-                            $('#sdDescription').html(stdMO);
+                            $('#rata2Description').html(rataMO.toFixed(3));
+                            $('#sdDescription').html(stdMO.toFixed(3));
+                            $('#hasilGMDescription').html(msgHasilGM);
+                            // $('#hasilMODescription').html(stdMO);
                             console.log(dataGraphResult);
                             chart.render();
                         }else{

@@ -106,7 +106,8 @@ def signInUser():
             print(idUser)
 
             if len(data) is 0:
-                flash('Username or Password is Wrong')
+                # flash('Username or Password is Wrong')
+                # result = {'success': False, 'url': None, 'message': 'Username or Password is Wrong'}
                 result = {'success': False, 'url': None, 'message': 'Username or Password is Wrong'}
                 return jsonify(result)
             else:
