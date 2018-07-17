@@ -52,15 +52,19 @@
                         </a>
                     </div> -->
                     <div class="right item nav-top">
-                        <a class="item" href="{{ url_for('signOut') }}">
-                          Logout
-                        </a>
+                        <div>
+                            <a class="ui inverted red button" href="{{ url_for('signOut') }}">
+                                Logout
+                            </a>
+                        </div>
                     </div>
                 {% else %}
                     <div class="right item nav-top">
-                        <a class="item" href="{{ url_for('signIn') }}">
-                          Sign In
-                        </a>
+                        <div>
+                            <a class="ui inverted blue button" href="{{ url_for('signIn') }}">
+                                Sign In
+                            </a>
+                        </div>
                     </div>
                 {% endif %}
         </div>
