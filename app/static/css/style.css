@@ -60,13 +60,21 @@
 }
 
 #footer_menu {
-    margin: 5em 0em 0em;
-    padding: 5em 0em;
+    margin: 0em 0em 0em;
+    padding: 2em 0em;
 }
 
 #main_area {
+    min-height: 100%;
     margin-top: 4em;
     padding-top: 3em;
+    /* padding-left: 5%;
+    padding-right: 5%; */
+}
+
+#main_area > :not(#welcome-page){
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 #playlist{
@@ -282,6 +290,49 @@ body > .grid {
 @keyframes fadeEffect {
     from {opacity: 0;}
     to {opacity: 1;}
+}
+
+#start {
+    margin-right: 5px;
+}
+
+#reset {
+    margin-right: 5px;
+}
+
+#stop {
+    margin-right: 5px;
+}
+
+#welcome-page {
+    margin-top: -27px;
+    padding-top: 15%;
+    /* position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%; */
+}
+
+#header-text{
+    margin-bottom: 0em;
+    font-size: 4em;
+    font-weight: normal;
+}
+
+#subHeader-text{
+    font-size: 1.7em;
+    font-weight: normal;
+}
+
+#nav-menu-top {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+#footer-text {
+    /* padding-left: 5%; */
+    text-align: center;
 }
 /* #all-graph-container {
     padding-top: 25px;

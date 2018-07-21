@@ -26,7 +26,7 @@
 </head>
 <body>
 
-    <div class="ui fixed inverted menu">
+    <div class="ui pointing fixed inverted menu" id="nav-menu-top">
         <div class="ui container">
                 <div class="left item">
                     <a class="item" href="/%F0%9F%8E%B5">
@@ -72,6 +72,14 @@
 
     <div id="main_area" class="ui main container">
         {% block content %}{% endblock %}
+    </div>
+
+    <div id="footer_menu" class="ui inverted vertical footer segment">
+        <div class="ui center aligned container" id="footer-text">
+            <h5>Developed by Aditya Yudha Wardana</h5>
+            <p>© 2018</p>
+        </div>
+    
     </div>
 
     <div id="modal">

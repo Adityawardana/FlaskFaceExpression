@@ -17,10 +17,10 @@
                                 
                                 <input type="radio" id="sttl" name="kategori" value="Tidak Hafal Lirik">
                                 <label for="kategoriChoice2">Tidak Hafal Lirik</label>
-
+                                <br>
                                 <input type="radio" id="bd" name="kategori" value="Baru Dengar">
                                 <label for="kategoriChoice3">Baru Dengar</label><br>
-                                <button class="ui toggle button" type="submit">Set</button>
+                                <button class="ui primary toggle button" type="submit">Set</button>
                             </div>
                           </form>
                     </div>
@@ -48,15 +48,15 @@
                 <div class="ui divider"></div>
                 <div id="menu-controller">
                     <div style="display:inline-block;margin-right: 50px;" class="ui buttons">
-                        <button class="ui labeled icon button" id="start" onclick="onStart()">
+                        <button class="ui labeled positive icon button" id="start" onclick="onStart()">
                             <i class="play icon"></i>
                             Play
                         </button>
-                        <button class="ui labeled icon button" id="reset" onclick="onReset()">
+                        <button class="ui labeled yellow icon button" id="reset" onclick="onReset()">
                             Reset
                             <i class="undo alternate icon"></i>
                         </button>
-                        <button class="ui labeled icon button" id="stop" onclick="onStop()">
+                        <button class="ui labeled negative icon button" id="stop" onclick="onStop()">
                             <i class="stop icon"></i>
                             Stop
                         </button>
@@ -67,12 +67,12 @@
                         <!-- <span id="logs"></span> -->
                     </div>
 
-                    <div style="height:25em;">
+                    <!-- <div style="height:25em;">
                         <div>
                             <h2 id="emotion_result" style="color: red;"></h2>
                         </div>
                         <div id="results" style="word-wrap:break-word;"></div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="col-md-8" id="affdex_elements" style="width:200px;height:150px;position:fixed;right:10px;
@@ -89,7 +89,7 @@
     <div id="modal-playlist" class="modal-p">
         <div class="modal-content">
             <span class="close_modal close icon">&times;</span>
-            <br><strong>List Lagu</strong>
+            <h2>List Lagu</h2>
             <!-- Tab links -->
             <div class="tab">
                 <button class="tablinks" onclick="openGenre(event, 'menuPop')" id="defaultOpen">Pop</button>
