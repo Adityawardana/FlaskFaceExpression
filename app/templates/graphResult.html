@@ -211,7 +211,8 @@
                     tempVarian = tempVarian + xPangkat;
                 }
 
-                varian = tempVarian / array.length;
+                // varian = tempVarian / array.length;
+                varian = tempVarian / (array.length - 1);
                 sd = Math.sqrt(varian);
 
                 return sd;
