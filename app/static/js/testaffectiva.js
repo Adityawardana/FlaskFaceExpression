@@ -276,6 +276,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/akhirnya.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_ayah.onclick = function () {
@@ -289,6 +290,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/ayah.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_bahagia.onclick = function () {
@@ -302,6 +304,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/bahagia.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_benciUntukMencinta.onclick = function () {
@@ -315,6 +318,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/benci%20untuk%20mencinta.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_beritaKepadaKawan.onclick = function () {
@@ -328,6 +332,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/berita%20kepada%20kawan.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_bukaSemangatBaru.onclick = function () {
@@ -341,6 +346,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/buka%20semangat%20baru.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_bukanDiaTapiAku.onclick = function () {
@@ -354,6 +360,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/bukan%20dia%20tapi%20aku.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_bunda.onclick = function () {
@@ -367,6 +374,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/bunda.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_happy.onclick = function () {
@@ -380,6 +388,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/happy.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_lebihIndah.onclick = function () {
@@ -393,6 +402,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/lebih%20indah.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_manusiaBodoh.onclick = function () {
@@ -406,6 +416,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/manusia%20bodoh.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_selamatPagi.onclick = function () {
@@ -419,6 +430,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/selamat%20pagi.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_semuaTentangKita.onclick = function () {
@@ -432,6 +444,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/semua%20tentang%20kita.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_sepertiYangKauMinta.onclick = function () {
@@ -445,6 +458,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/seperti%20yang%20kau%20minta.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_sugar.onclick = function () {
@@ -458,6 +472,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/sugar.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_tetapSemangat.onclick = function () {
@@ -471,6 +486,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/tetap%20semangat.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_uptownFunk.onclick = function () {
@@ -484,6 +500,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/uptown%20funk.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_weWillNotGoDown.onclick = function () {
@@ -497,6 +514,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/we%20will%20not%20go%20down.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_moreThanWords.onclick = function () {
@@ -510,6 +528,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/more%20than%20words.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_despacito.onclick = function () {
@@ -523,6 +542,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/despacito.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_pernah.onclick = function () {
@@ -536,6 +556,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/pernah.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_tentangRindu.onclick = function () {
@@ -549,6 +570,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/tentang%20rindu.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_indonesiaRaya.onclick = function () {
@@ -562,6 +584,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/indonesia%20raya.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_kembaliPulang.onclick = function () {
@@ -575,6 +598,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/kembali%20pulang.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_pujaanHati.onclick = function () {
@@ -588,6 +612,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/pujaan%20hati.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_sekaliIniSaja.onclick = function () {
@@ -601,6 +626,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/sekali%20ini%20saja.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_bersamamu.onclick = function () {
@@ -614,6 +640,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/bersamamu.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_brightAsTheSun.onclick = function () {
@@ -627,6 +654,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/bright%20as%20the%20sun.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_attention.onclick = function () {
@@ -640,6 +668,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/attention.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
     
     pl_allOfMe.onclick = function () {
@@ -653,6 +682,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/all%20of%20me.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
     
     // --- Dangdut ---
@@ -667,6 +697,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/lagi%20syantik.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_nasiPadang.onclick = function () {
@@ -680,6 +711,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/nasi%20padang.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_sayang.onclick = function () {
@@ -693,6 +725,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/sayang.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_sayang2.onclick = function () {
@@ -706,6 +739,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/sayang%202.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_jaranGoyang.onclick = function () {
@@ -719,6 +753,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/jaran%20goyang.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_ditinggalRabi.onclick = function () {
@@ -732,6 +767,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/ditinggal%20rabi.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_goyangDumang.onclick = function () {
@@ -745,6 +781,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/goyang%20dumang.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_sakitnyaTuhDisini.onclick = function () {
@@ -758,6 +795,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/sakitnya%20tuh%20disini.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_penasaran.onclick = function () {
@@ -771,6 +809,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/penasaran.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_darahMuda.onclick = function () {
@@ -784,6 +823,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/darah%20muda.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
     
     // --- Rock ---
@@ -798,6 +838,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/heaven.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_itsMyLife.onclick = function () {
@@ -811,6 +852,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/its%20my%20life.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_smellsLikeTeenSpirit.onclick = function () {
@@ -824,6 +866,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/smells%20like%20teen%20spirit.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_bringMeToLife.onclick = function () {
@@ -837,6 +880,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/bring%20me%20to%20life.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_sweetChildOfMine.onclick = function () {
@@ -850,6 +894,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/sweet%20child%20of%20mine.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     // --- Jazz ---
@@ -864,6 +909,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/careless%20whisper.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_feelingGood.onclick = function () {
@@ -877,6 +923,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/feeling%20good.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_pastiBisa.onclick = function () {
@@ -890,6 +937,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/pasti%20bisa.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_cryMeARiver.onclick = function () {
@@ -903,6 +951,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/cry%20me%20a%20river.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_sway.onclick = function () {
@@ -916,6 +965,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/sway.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
        
     // --- Reggae ---
@@ -930,6 +980,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/santai%20saja.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_welcomeToMyParadise.onclick = function () {
@@ -943,6 +994,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/welcome%20to%20my%20paradise.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_noWomenNoCry.onclick = function () {
@@ -956,6 +1008,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/no%20women%20no%20cry.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_kembaliBerdansa.onclick = function () {
@@ -969,6 +1022,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/kembali%20berdansa.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_diSayidan.onclick = function () {
@@ -982,6 +1036,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/di%20sayidan.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     // --- Religi ---    
@@ -996,6 +1051,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/deen%20assalam.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_rapuh.onclick = function () {
@@ -1009,6 +1065,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/rapuh.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_tomboAti.onclick = function () {
@@ -1022,6 +1079,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/tombo%20ati.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
 
     pl_bilaWaktuTelahBerakhir.onclick = function () {
@@ -1035,6 +1093,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/bila%20waktu%20telah%20berakhir.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
     
     pl_ramadhan.onclick = function () {
@@ -1048,6 +1107,7 @@ $(document).ready(function () {
 
         c_a.setAttribute("href", "/static/songs/ramadhan.mp3");
         c_a.appendChild(list_song);
+        swal('Lagu Telah Ditambahkan');
     }
     // ----------------------------- end of add playlist ---------------------------------------
 });

@@ -28,7 +28,6 @@ def index(imageUrl):
 @app.route('/')
 def redirectHome():
     return redirect("%F0%9F%8E%B5", code=302)
-    
 
 @app.route('/signUp')
 def signUp():
